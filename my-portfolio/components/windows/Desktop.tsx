@@ -67,7 +67,10 @@ export function Desktop({
     onSelectFolder?.(winId);
   };
 
-  const handleOpen = (id: WindowId | string, e: any) => {
+  const handleOpen = (
+    id: WindowId | string,
+    e?: React.MouseEvent | React.TouchEvent | React.KeyboardEvent,
+  ) => {
     const winId = id as WindowId;
     onOpenFolder?.(winId, e);
   };

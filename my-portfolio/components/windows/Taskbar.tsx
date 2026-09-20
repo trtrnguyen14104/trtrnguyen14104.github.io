@@ -37,10 +37,19 @@ export function Taskbar({
   const [searchQuery, setSearchQuery] = useState("");
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
+  const handleToggleLiveDate = () => {
+    setIsLiveDate((prev) => {
+      const next = !prev;
+      if (next) {
+        setCurrentTime(new Date());
+      }
+      return next;
+    });
+  };
+
   useEffect(() => {
     if (!isLiveDate) return;
 
-    setCurrentTime(new Date());
     const interval = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
@@ -154,6 +163,7 @@ export function Taskbar({
             onClick={() => onOpenWindow("projects")}
             className="p-1.5 rounded-lg hover:bg-white/10 active:scale-95 transition-all flex items-center justify-center"
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/icons/Windows-FOLDER.png"
               alt="Pinned folder"
@@ -203,6 +213,7 @@ export function Taskbar({
                       : "bg-white/10 text-white/90 hover:bg-white/15 hover:text-white"
                   }`}
                 >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={win.icon}
                     alt=""
@@ -252,6 +263,7 @@ export function Taskbar({
             title="Battery: 100% Fully Charged"
             className="p-1 flex items-center justify-center cursor-pointer"
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/icons/Windows_battery.png"
               alt="Battery: 100%"
@@ -269,7 +281,7 @@ export function Taskbar({
                 ? "Showing Live Time & Date (Click for 14/10/2004)"
                 : "Showing 14/10/2004 (Click for Live Time & Date)"
             }
-            onClick={() => setIsLiveDate((prev) => !prev)}
+            onClick={handleToggleLiveDate}
             className="flex flex-col items-end text-[11px] leading-tight font-medium text-white/90 hover:bg-white/10 px-2 py-1 rounded-md transition-colors cursor-pointer group"
           >
             <span className="font-semibold text-white tracking-wide">

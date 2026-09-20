@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 
 export type WindowId = "about-me" | "projects" | "contact";
 
@@ -58,41 +58,37 @@ export function useWindowManager() {
   const [windows, setWindows] =
     useState<Record<WindowId, WindowConfig>>(INITIAL_WINDOWS);
   const [activeWindowId, setActiveWindowId] = useState<WindowId | null>(null);
-  const [highestZ, setHighestZ] = useState(20);
+  const highestZRef = useRef(20);
 
   const bringToFront = useCallback((id: WindowId) => {
-    setHighestZ((prev) => {
-      const nextZ = prev + 1;
-      setWindows((prevWindows) => ({
-        ...prevWindows,
-        [id]: {
-          ...prevWindows[id],
-          zIndex: nextZ,
-          isMinimized: false,
-        },
-      }));
-      return nextZ;
-    });
+    highestZRef.current += 1;
+    const nextZ = highestZRef.current;
+    setWindows((prevWindows) => ({
+      ...prevWindows,
+      [id]: {
+        ...prevWindows[id],
+        zIndex: nextZ,
+        isMinimized: false,
+      },
+    }));
     setActiveWindowId(id);
   }, []);
 
   const openWindow = useCallback(
-    (id: WindowId, _origin?: { x: number; y: number }) => {
-      setHighestZ((prev) => {
-        const nextZ = prev + 1;
-        setWindows((prevWindows) => {
-          const target = prevWindows[id];
-          return {
-            ...prevWindows,
-            [id]: {
-              ...target,
-              isOpen: true,
-              isMinimized: false,
-              zIndex: nextZ,
-            },
-          };
-        });
-        return nextZ;
+    (id: WindowId) => {
+      highestZRef.current += 1;
+      const nextZ = highestZRef.current;
+      setWindows((prevWindows) => {
+        const target = prevWindows[id];
+        return {
+          ...prevWindows,
+          [id]: {
+            ...target,
+            isOpen: true,
+            isMinimized: false,
+            zIndex: nextZ,
+          },
+        };
       });
       setActiveWindowId(id);
     },

@@ -99,6 +99,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
                 what i do
               </h2>
               <div className="relative inline-flex items-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/icons/Windows_mouse.png"
                   alt="Pixel cursor pointing to what i do"
@@ -242,6 +243,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
             {/* Sticker / Card Framing */}
             <div className="p-3 sm:p-3.5 bg-white/95 rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.4)] transform rotate-[1.5deg] group-hover:rotate-0 transition-transform duration-300">
               <div className="relative overflow-hidden rounded-2xl bg-slate-100 aspect-[3/4]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={profile.avatar}
                   alt={`Trần Trung Nguyên - ${profile.role}`}

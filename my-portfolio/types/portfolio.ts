@@ -27,19 +27,21 @@ export interface SkillItem {
   icon?: string;
 }
 
+export interface Profile {
+  name: string;
+  role: string;
+  tagline: string;
+  location: string;
+  email: string;
+  phone: string;
+  github: string;
+  linkedin: string;
+  status: string;
+  avatar: string;
+}
+
 export interface PortfolioData {
-  profile: {
-    name: string;
-    role: string;
-    tagline: string;
-    location: string;
-    email: string;
-    phone: string;
-    github: string;
-    linkedin: string;
-    status: string;
-    avatar: string;
-  };
+  profile: Profile;
   skills: SkillItem[];
   projects: ProjectItem[];
 }

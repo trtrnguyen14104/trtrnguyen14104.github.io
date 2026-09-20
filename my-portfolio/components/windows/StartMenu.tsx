@@ -1,11 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
 import {
-  Folder,
   RotateCcw,
-  ExternalLink,
   Mail,
   MapPin,
   Sparkles,
@@ -119,6 +116,7 @@ export function StartMenu({
       {/* User Profile Header */}
       <div className="p-4 bg-white/5 border-b border-white/10 flex items-center gap-3.5">
         <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/20 shadow-md shrink-0 bg-slate-800">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={portfolioData.profile.avatar || "/pictures/me.png"}
             alt="Profile avatar"
@@ -162,6 +160,7 @@ export function StartMenu({
             className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 transition-colors text-left group"
           >
             <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/icons/Windows-FOLDER.png"
                 alt=""
@@ -186,6 +185,7 @@ export function StartMenu({
             className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 transition-colors text-left group"
           >
             <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/icons/Windows-FOLDER.png"
                 alt=""
@@ -210,6 +210,7 @@ export function StartMenu({
             className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 transition-colors text-left group"
           >
             <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/icons/Windows-FOLDER.png"
                 alt=""

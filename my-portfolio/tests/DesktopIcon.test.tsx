@@ -122,7 +122,7 @@ describe("Desktop Component", () => {
   });
 
   it("renders wallpaper, default folder icons, and hero typography", () => {
-    const { container } = render(<Desktop />);
+    render(<Desktop />);
 
     // Wallpaper
     const wallpaper = screen.getByAltText(/desktop wallpaper/i);

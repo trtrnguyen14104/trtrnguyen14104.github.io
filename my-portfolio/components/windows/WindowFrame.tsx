@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   X,
   Minus,
@@ -67,17 +67,17 @@ export function WindowFrame({
 }: WindowFrameProps) {
   const windowRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState(position);
+  const [prevPosition, setPrevPosition] = useState(position);
   const [searchQuery, setSearchQuery] = useState("");
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, posX: 0, posY: 0 });
   const prevMinimizedRef = useRef(isMinimized);
 
-  // Sync internal position with prop if changed from outside
-  useEffect(() => {
-    if (position) {
-      setPos(position);
-    }
-  }, [position?.x, position?.y]);
+  // Sync internal position with prop during render if changed from outside
+  if (position && (position.x !== prevPosition?.x || position.y !== prevPosition?.y)) {
+    setPrevPosition(position);
+    setPos(position);
+  }
 
   // Handle restore animation when transition from isMinimized=true to false
   useEffect(() => {
@@ -88,12 +88,8 @@ export function WindowFrame({
 
       try {
         const tween = animateWindowRestore(windowRef.current, taskbarIcon);
-        if (
-          process.env.NODE_ENV === "test" &&
-          tween &&
-          typeof (tween as unknown as { progress?: (val: number) => void }).progress === "function"
-        ) {
-          (tween as unknown as { progress: (val: number) => void }).progress(1);
+        if (process.env.NODE_ENV === "test") {
+          (tween as unknown as { progress?: (val: number) => void })?.progress?.(1);
         }
       } catch {
         // Fallback for environments where GSAP is disabled
@@ -119,12 +115,8 @@ export function WindowFrame({
           onMinimize?.();
         });
 
-        if (
-          process.env.NODE_ENV === "test" &&
-          tween &&
-          typeof (tween as unknown as { progress?: (val: number) => void }).progress === "function"
-        ) {
-          (tween as unknown as { progress: (val: number) => void }).progress(1);
+        if (process.env.NODE_ENV === "test") {
+          (tween as unknown as { progress?: (val: number) => void })?.progress?.(1);
         }
       } catch {
         onMinimize?.();
@@ -142,12 +134,8 @@ export function WindowFrame({
           onClose();
         });
 
-        if (
-          process.env.NODE_ENV === "test" &&
-          tween &&
-          typeof (tween as unknown as { progress?: (val: number) => void }).progress === "function"
-        ) {
-          (tween as unknown as { progress: (val: number) => void }).progress(1);
+        if (process.env.NODE_ENV === "test") {
+          (tween as unknown as { progress?: (val: number) => void })?.progress?.(1);
         }
       } catch {
         onClose();
@@ -276,6 +264,7 @@ export function WindowFrame({
       >
         {/* Title and Icon */}
         <div className="flex items-center gap-2 overflow-hidden pointer-events-none">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={icon}
             alt=""
@@ -371,6 +360,7 @@ export function WindowFrame({
           title={`This PC > Portfolio > ${resolvedFolderName}`}
           aria-label={`Address: This PC > Portfolio > ${resolvedFolderName}`}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={icon}
             alt=""

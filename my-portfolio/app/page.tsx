@@ -53,12 +53,8 @@ export default function Home() {
         if (folderEl && windowEl) {
           try {
             const tween = animateFolderOpen(folderEl, windowEl);
-            if (
-              process.env.NODE_ENV === "test" &&
-              tween &&
-              typeof (tween as unknown as { progress?: (val: number) => void }).progress === "function"
-            ) {
-              (tween as unknown as { progress: (val: number) => void }).progress(1);
+            if (process.env.NODE_ENV === "test") {
+              (tween as unknown as { progress?: (val: number) => void })?.progress?.(1);
             }
           } catch {
             // Fallback for non-GSAP environments
@@ -87,12 +83,8 @@ export default function Home() {
           const tween = animateWindowMinimize(windowEl, taskbarIcon, () => {
             minimizeWindow(id);
           });
-          if (
-            process.env.NODE_ENV === "test" &&
-            tween &&
-            typeof (tween as unknown as { progress?: (val: number) => void }).progress === "function"
-          ) {
-            (tween as unknown as { progress: (val: number) => void }).progress(1);
+          if (process.env.NODE_ENV === "test") {
+            (tween as unknown as { progress?: (val: number) => void })?.progress?.(1);
           }
         } catch {
           minimizeWindow(id);
