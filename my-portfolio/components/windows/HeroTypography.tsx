@@ -14,16 +14,20 @@ export function HeroTypography({ className = "" }: HeroTypographyProps) {
     >
       {/* SVG Container for arched owner name */}
       <div className="w-[320px] xs:w-[380px] sm:w-[520px] md:w-[650px] lg:w-[780px] max-w-full overflow-visible">
+      <div className="w-[340px] xs:w-[400px] sm:w-[540px] md:w-[680px] lg:w-[820px] max-w-full overflow-visible">
         <svg
           viewBox="0 0 800 130"
+          viewBox="0 0 900 130"
           className="w-full h-auto overflow-visible"
           aria-hidden="true"
         >
           <defs>
             {/* Smooth arch curve matching home.png */}
+            {/* Extended arch curve extending beyond viewBox so letters are never clipped */}
             <path
               id="hero-name-curve"
               d="M 60,115 Q 400,20 740,115"
+              d="M -100,140 Q 450,15 1000,140"
               fill="transparent"
             />
             <filter id="hero-shadow" x="-10%" y="-10%" width="130%" height="130%">
@@ -33,6 +37,7 @@ export function HeroTypography({ className = "" }: HeroTypographyProps) {
           <text
             filter="url(#hero-shadow)"
             className="font-black tracking-[0.22em] text-[40px] sm:text-[46px] md:text-[50px] uppercase"
+            className="font-black tracking-[0.14em] text-[48px] sm:text-[60px] md:text-[68px] uppercase select-none"
             fill="#ffd000"
             stroke="#c88b00"
             strokeWidth="1.5"
