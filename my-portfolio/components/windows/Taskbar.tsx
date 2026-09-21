@@ -219,7 +219,7 @@ export function Taskbar({
                     alt=""
                     className="w-4 h-4 object-contain shrink-0"
                   />
-                  <span className="truncate max-w-[120px]">{cleanTitle}</span>
+                  <span className="truncate max-w-30">{cleanTitle}</span>
 
                   {/* Active bottom indicator line */}
                   <span
@@ -276,6 +276,7 @@ export function Taskbar({
             type="button"
             role="button"
             aria-label="Clock and date"
+            suppressHydrationWarning
             title={
               isLiveDate
                 ? "Showing Live Time & Date (Click for 14/10/2004)"
@@ -284,10 +285,10 @@ export function Taskbar({
             onClick={handleToggleLiveDate}
             className="flex flex-col items-end text-[11px] leading-tight font-medium text-white/90 hover:bg-white/10 px-2 py-1 rounded-md transition-colors cursor-pointer group"
           >
-            <span className="font-semibold text-white tracking-wide">
+            <span className="font-semibold text-white tracking-wide" suppressHydrationWarning>
               {timeDisplay}
             </span>
-            <span className="text-[10px] text-white/70 group-hover:text-cyan-300 transition-colors">
+            <span className="text-[10px] text-white/70 group-hover:text-cyan-300 transition-colors" suppressHydrationWarning>
               {dateDisplay}
             </span>
           </button>

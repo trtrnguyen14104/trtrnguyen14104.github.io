@@ -45,7 +45,7 @@ export function LaptopMockup({
       {/* 3-Card Fan-out Container positioned behind & on laptop screen */}
       <div className="relative w-full flex justify-center items-center">
         {/* === LAPTOP LID & SCREEN === */}
-        <div className="relative w-[82%] sm:w-[78%] md:w-[72%] max-w-[620px] z-10">
+        <div className="relative w-[82%] sm:w-[78%] md:w-[72%] max-w-155 z-10">
           {/* Outer Bezel (Dark metallic chassis) */}
           <div className="bg-[#121316] rounded-t-2xl sm:rounded-t-3xl p-2 sm:p-3 pb-0 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] border-t border-x border-[#2c2e35]">
             {/* Camera / Mic notch at top bezel */}
@@ -58,17 +58,17 @@ export function LaptopMockup({
             {/* Inner Display Screen with Glass Glare */}
             <div
               data-testid="laptop-screen"
-              className="relative w-full aspect-[16/10] bg-[#0c0d10] overflow-visible rounded-t-md sm:rounded-t-lg flex items-center justify-center"
+              className="relative w-full aspect-16/10 bg-[#0c0d10] overflow-visible rounded-t-md sm:rounded-t-lg flex items-center justify-center"
             >
               {/* Screen Ambient Glow */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/10 pointer-events-none z-30 rounded-t-md" />
+              <div className="absolute inset-0 bg-linear-to-tr from-black/40 via-transparent to-white/10 pointer-events-none z-30 rounded-t-md" />
 
               {/* === 3-CARD FAN-OUT SHOWCASE === */}
               <div className="relative w-full h-full flex items-center justify-center">
                 {/* --- Left Perspective Card --- */}
                 <div
                   data-testid="fan-card-left"
-                  className="fan-card absolute -left-12 sm:-left-20 md:-left-28 top-8 sm:top-6 w-[55%] sm:w-[50%] h-[75%] sm:h-[80%] rounded-lg sm:rounded-xl shadow-[-16px_18px_35px_rgba(0,0,0,0.55)] border border-white/20 overflow-hidden transform -rotate-[14deg] -translate-y-2 hover:-translate-y-4 hover:-rotate-[12deg] transition-all duration-300 z-10 bg-slate-900"
+                  className="fan-card absolute -left-12 sm:-left-20 md:-left-28 top-8 sm:top-6 w-[55%] sm:w-[50%] h-[75%] sm:h-[80%] rounded-lg sm:rounded-xl shadow-[-16px_18px_35px_rgba(0,0,0,0.55)] border border-white/20 overflow-hidden transform rotate-14 -translate-y-2 hover:-translate-y-4 hover:-rotate-12 transition-all duration-300 z-10 bg-slate-900"
                 >
                   {!imgErrors.left && project.mockImages.left ? (
                     <img
@@ -80,7 +80,7 @@ export function LaptopMockup({
                   ) : (
                     <div
                       data-testid="fallback-card-left"
-                      className="w-full h-full flex flex-col p-3 sm:p-4 bg-gradient-to-br from-slate-800 via-slate-900 to-indigo-950 text-white"
+                      className="w-full h-full flex flex-col p-3 sm:p-4 bg-linear-to-br from-slate-800 via-slate-900 to-indigo-950 text-white"
                     >
                       <div className="flex items-center gap-1.5 pb-2 border-b border-white/10">
                         <div className="w-2 h-2 rounded-full bg-red-400" />
@@ -106,7 +106,7 @@ export function LaptopMockup({
                 {/* --- Center / Main Perspective Card --- */}
                 <div
                   data-testid="fan-card-main"
-                  className="fan-card absolute top-2 sm:top-1 w-[70%] sm:w-[68%] h-[90%] sm:h-[94%] rounded-lg sm:rounded-xl shadow-[0_25px_50px_rgba(0,0,0,0.65)] border border-white/25 overflow-hidden transform -rotate-[7deg] hover:rotate-0 hover:scale-105 transition-all duration-300 z-20 bg-slate-900"
+                  className="fan-card absolute top-2 sm:top-1 w-[70%] sm:w-[68%] h-[90%] sm:h-[94%] rounded-lg sm:rounded-xl shadow-[0_25px_50px_rgba(0,0,0,0.65)] border border-white/25 overflow-hidden transform -rotate-7 hover:rotate-0 hover:scale-105 transition-all duration-300 z-20 bg-slate-900"
                 >
                   {!imgErrors.main && project.mockImages.main ? (
                     <img
@@ -118,7 +118,7 @@ export function LaptopMockup({
                   ) : (
                     <div
                       data-testid="fallback-card-main"
-                      className="w-full h-full flex flex-col p-4 sm:p-5 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white"
+                      className="w-full h-full flex flex-col p-4 sm:p-5 bg-linear-to-br from-slate-900 via-blue-950 to-slate-900 text-white"
                     >
                       <div className="flex items-center justify-between pb-2 border-b border-white/15">
                         <div className="flex items-center gap-1.5">
@@ -135,7 +135,7 @@ export function LaptopMockup({
                         <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
                           {project.title}
                         </h3>
-                        <p className="text-xs text-white/70 mt-1 max-w-[200px] line-clamp-2">
+                        <p className="text-xs text-white/70 mt-1 max-w-50 line-clamp-2">
                           {project.subtitle}
                         </p>
                       </div>
@@ -146,7 +146,7 @@ export function LaptopMockup({
                 {/* --- Right Perspective Card --- */}
                 <div
                   data-testid="fan-card-right"
-                  className="fan-card absolute -right-12 sm:-right-20 md:-right-28 top-8 sm:top-6 w-[55%] sm:w-[50%] h-[75%] sm:h-[80%] rounded-lg sm:rounded-xl shadow-[16px_18px_35px_rgba(0,0,0,0.55)] border border-white/20 overflow-hidden transform rotate-[14deg] -translate-y-2 hover:-translate-y-4 hover:rotate-[12deg] transition-all duration-300 z-10 bg-slate-900"
+                  className="fan-card absolute -right-12 sm:-right-20 md:-right-28 top-8 sm:top-6 w-[55%] sm:w-[50%] h-[75%] sm:h-[80%] rounded-lg sm:rounded-xl shadow-[16px_18px_35px_rgba(0,0,0,0.55)] border border-white/20 overflow-hidden transform rotate-14 -translate-y-2 hover:-translate-y-4 hover:rotate-12 transition-all duration-300 z-10 bg-slate-900"
                 >
                   {!imgErrors.right && project.mockImages.right ? (
                     <img
@@ -158,7 +158,7 @@ export function LaptopMockup({
                   ) : (
                     <div
                       data-testid="fallback-card-right"
-                      className="w-full h-full flex flex-col p-3 sm:p-4 bg-gradient-to-br from-slate-800 via-slate-900 to-emerald-950 text-white"
+                      className="w-full h-full flex flex-col p-3 sm:p-4 bg-linear-to-br from-slate-800 via-slate-900 to-emerald-950 text-white"
                     >
                       <div className="flex items-center gap-1.5 pb-2 border-b border-white/10">
                         <div className="w-2 h-2 rounded-full bg-red-400" />
@@ -185,17 +185,17 @@ export function LaptopMockup({
           </div>
 
           {/* Hinge Connection */}
-          <div className="w-[102%] -ml-[1%] h-2 sm:h-2.5 bg-[#1f2127] rounded-sm mx-auto shadow-inner" />
+          <div className="w-[102%] ml-[1%] h-2 sm:h-2.5 bg-[#1f2127] rounded-sm mx-auto shadow-inner" />
         </div>
       </div>
 
       {/* === LAPTOP BASE & KEYBOARD CHASSIS === */}
       <div
         data-testid="laptop-base"
-        className="relative w-[92%] sm:w-[88%] md:w-[82%] max-w-[700px] z-30 -mt-1"
+        className="relative w-[92%] sm:w-[88%] md:w-[82%] max-w-175 z-30 -mt-1"
       >
         {/* Metallic Beveled Base */}
-        <div className="relative h-4 sm:h-5 md:h-6 w-full rounded-b-xl sm:rounded-b-2xl bg-gradient-to-b from-[#a3aab3] via-[#858c96] to-[#6d737c] shadow-[0_25px_50px_rgba(0,0,0,0.5)] border-t border-white/40 flex items-start justify-center overflow-hidden">
+        <div className="relative h-4 sm:h-5 md:h-6 w-full rounded-b-xl sm:rounded-b-2xl bg-linear-to-b from-[#a3aab3] via-[#858c96] to-[#6d737c] shadow-[0_25px_50px_rgba(0,0,0,0.5)] border-t border-white/40 flex items-start justify-center overflow-hidden">
           {/* Center Lid / Trackpad Notch */}
           <div className="w-14 sm:w-20 md:w-24 h-1 sm:h-1.5 bg-[#4c5056] rounded-b-md shadow-inner" />
 
@@ -209,7 +209,7 @@ export function LaptopMockup({
 
       {/* === FLOWING RETRO CURSIVE SCRIPT TITLE OVERLAY === */}
       {/* Positioned across the screen bottom & laptop base matching project-1/2/3.png */}
-      <div className="absolute bottom-5 sm:bottom-6 md:bottom-7 z-40 pointer-events-none transform -rotate-[7deg] sm:-rotate-[8deg] drop-shadow-[0_12px_24px_rgba(0,0,0,0.45)]">
+      <div className="absolute bottom-5 sm:bottom-6 md:bottom-7 z-40 pointer-events-none transform -rotate-7 sm:-rotate-8 drop-shadow-[0_12px_24px_rgba(0,0,0,0.45)]">
         <span
           className="text-6xl xs:text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-normal leading-none tracking-tight text-white select-none whitespace-nowrap italic"
           style={{

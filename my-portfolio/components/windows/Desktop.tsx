@@ -110,7 +110,7 @@ export function Desktop({
       </div>
 
       {/* Hero Typography Layer */}
-      <div className="absolute inset-0 z-[1] flex items-center justify-center pointer-events-none pb-20 sm:pb-28 md:pb-36 px-4">
+      <div className="absolute inset-0 z-1 flex items-center justify-center pointer-events-none pb-20 sm:pb-28 md:pb-36 px-4">
         <HeroTypography />
       </div>
 
@@ -132,7 +132,7 @@ export function Desktop({
       {/* Active Windows Placeholder / Floating Content Layer */}
       <div
         data-testid="windows-layer"
-        className="absolute inset-0 z-20 pointer-events-none [&>*]:pointer-events-auto"
+        className="absolute inset-0 z-20 pointer-events-none *:pointer-events-auto"
       >
         {children}
       </div>

@@ -173,7 +173,7 @@ export function ContactContent({ className = "" }: ContactContentProps) {
         <div className="flex flex-col items-center text-center mt-2 sm:mt-6 mb-8 sm:mb-12">
           {/* Yellow Retro Headline matching contact.png */}
           <h1
-            className="text-6xl xs:text-7xl sm:text-8xl md:text-9xl font-normal leading-none tracking-tight text-[#ffd000] select-none transform -rotate-[1deg]"
+            className="text-6xl xs:text-7xl sm:text-8xl md:text-9xl font-normal leading-none tracking-tight text-[#ffd000] select-none transform -rotate-1"
             style={{
               fontFamily:
                 "'Pacifico', 'Brush Script MT', 'Caveat', 'Shrikhand', cursive, sans-serif",
@@ -279,7 +279,7 @@ export function ContactContent({ className = "" }: ContactContentProps) {
         {/* Retro Windows Mail / Outlook Express Message Dialog */}
         <div className="w-full max-w-2xl bg-[#ece9d8] text-slate-900 rounded-lg shadow-2xl border-2 border-slate-400 overflow-hidden font-sans">
           {/* Classic Windows Titlebar */}
-          <div className="bg-gradient-to-r from-[#0055ea] via-[#0a66f0] to-[#3688ff] text-white px-3 py-1.5 flex items-center justify-between select-none">
+          <div className="bg-linear-to-r from-[#0055ea] via-[#0a66f0] to-[#3688ff] text-white px-3 py-1.5 flex items-center justify-between select-none">
             <div className="flex items-center gap-2 font-bold text-xs sm:text-sm tracking-wide">
               <Mail className="w-4 h-4 text-yellow-300" />
               <span>Windows Mail — Outlook Express (Send a Message)</span>
@@ -298,12 +298,12 @@ export function ContactContent({ className = "" }: ContactContentProps) {
               <Send className="w-3.5 h-3.5 text-blue-600" />
               <span>Send</span>
             </div>
-            <div className="w-[1px] h-4 bg-slate-300 mx-1" />
+            <div className="w-px h-4 bg-slate-300 mx-1" />
             <div className="flex items-center gap-1 text-slate-700 font-medium px-2 py-1 rounded hover:bg-black/5 cursor-pointer">
               <Paperclip className="w-3.5 h-3.5 text-slate-600" />
               <span>Attach</span>
             </div>
-            <div className="w-[1px] h-4 bg-slate-300 mx-1" />
+            <div className="w-px h-4 bg-slate-300 mx-1" />
             <button
               type="button"
               onClick={handleResetForm}

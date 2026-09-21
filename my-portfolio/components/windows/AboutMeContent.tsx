@@ -63,7 +63,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
 
   return (
     <div
-      className={`min-h-full w-full bg-gradient-to-br from-[#4a69e2] via-[#4361ee] to-[#3953cf] text-white p-6 sm:p-8 md:p-10 select-none overflow-x-hidden ${className}`}
+      className={`min-h-full w-full bg-linear-to-br from-[#4a69e2] via-[#4361ee] to-[#3953cf] text-white p-6 sm:p-8 md:p-10 select-none overflow-x-hidden ${className}`}
     >
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left Column: Headlines, Bio, Skills & Links */}
@@ -71,7 +71,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
           {/* Hero Titles matching about-me.png */}
           <div className="space-y-1">
             {/* Groovy Retro Yellow Cursive Title */}
-            <div className="relative inline-block transform -rotate-[2deg] origin-left">
+            <div className="relative inline-block transform -rotate-2 origin-left">
               <h1
                 className="text-5xl xs:text-6xl sm:text-7xl md:text-8xl font-normal leading-none tracking-tight text-[#ffd000] select-none"
                 style={{
@@ -239,10 +239,10 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
 
         {/* Right Column: Portrait Photo with Sticker Card Styling */}
         <div className="lg:col-span-5 flex justify-center lg:justify-end">
-          <div className="relative group max-w-[320px] sm:max-w-[360px] md:max-w-[380px] w-full">
+          <div className="relative group max-w-[320px] sm:max-w-90 md:max-w-95 w-full">
             {/* Sticker / Card Framing */}
             <div className="p-3 sm:p-3.5 bg-white/95 rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.4)] transform rotate-[1.5deg] group-hover:rotate-0 transition-transform duration-300">
-              <div className="relative overflow-hidden rounded-2xl bg-slate-100 aspect-[3/4]">
+              <div className="relative overflow-hidden rounded-2xl bg-slate-100 aspect-3/4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={profile.avatar}
@@ -251,7 +251,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
                 />
 
                 {/* Subtle gradient vignette overlay at the bottom */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
                 {/* Bottom Sticker Pill on Photo */}
                 <div className="absolute bottom-3 left-3 right-3 bg-slate-900/85 backdrop-blur-md text-white px-3 py-2 rounded-xl border border-white/20 shadow-lg flex items-center justify-between">
@@ -269,7 +269,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
             </div>
 
             {/* Decorative retro sticker badge floating at top right */}
-            <div className="absolute -top-3 -right-2 bg-[#ffd000] text-slate-950 font-black text-[11px] uppercase tracking-wider px-3 py-1 rounded-full shadow-lg border-2 border-white transform rotate-[10deg] group-hover:rotate-[5deg] transition-transform">
+            <div className="absolute -top-3 -right-2 bg-[#ffd000] text-slate-950 font-black text-[11px] uppercase tracking-wider px-3 py-1 rounded-full shadow-lg border-2 border-white transform rotate-10 group-hover:rotate-[5deg] transition-transform">
               🇻🇳 Vietnam
             </div>
           </div>

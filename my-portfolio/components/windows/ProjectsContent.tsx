@@ -250,7 +250,7 @@ export function ProjectsContent({
           {/* Vibrant Dynamic Showcase Container */}
           <div
             ref={showcaseBgRef}
-            className="relative w-full pt-8 pb-12 px-4 sm:px-6 flex flex-col items-center justify-center transition-colors duration-500 overflow-hidden min-h-[380px] sm:min-h-[440px]"
+            className="relative w-full pt-8 pb-12 px-4 sm:px-6 flex flex-col items-center justify-center transition-colors duration-500 overflow-hidden min-h-95 sm:min-h-110"
             style={{ backgroundColor: getProjectBgColor(currentProject) }}
           >
             {/* Top decorative labels matching project-3.png */}
@@ -303,7 +303,7 @@ export function ProjectsContent({
               </div>
 
               {/* Right Action Buttons & Quick Nav */}
-              <div className="flex flex-col gap-3 min-w-[200px] w-full md:w-auto">
+              <div className="flex flex-col gap-3 min-w-50 w-full md:w-auto">
                 {currentProject.links?.github && (
                   <a
                     href={currentProject.links.github}

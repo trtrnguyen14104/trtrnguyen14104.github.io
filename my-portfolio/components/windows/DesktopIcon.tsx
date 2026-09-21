@@ -104,7 +104,7 @@ export function DesktopIcon({
           priority
         />
       </div>
-      <span className="text-white text-xs sm:text-sm font-medium text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] tracking-wide pointer-events-none px-1 rounded break-words line-clamp-2 max-w-[90px]">
+      <span className="text-white text-xs sm:text-sm font-medium text-center drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] tracking-wide pointer-events-none px-1 rounded wrap-break-words line-clamp-2 max-w-22.5">
         {label}
       </span>
     </div>

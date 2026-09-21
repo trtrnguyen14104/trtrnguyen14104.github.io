@@ -45,8 +45,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${pacifico.variable} ${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans overflow-hidden select-none bg-[#4361ee] text-white">
+      <body
+        className="min-h-full flex flex-col font-sans overflow-hidden select-none bg-[#4361ee] text-white"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

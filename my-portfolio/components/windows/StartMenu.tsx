@@ -111,7 +111,7 @@ export function StartMenu({
       ref={menuRef}
       role="dialog"
       aria-label="Start Menu"
-      className="fixed bottom-14 left-2 sm:left-4 z-50 w-[360px] sm:w-[400px] max-w-[calc(100vw-16px)] rounded-2xl bg-[#0f172a]/95 backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden text-white flex flex-col animate-in fade-in slide-in-from-bottom-3 duration-200"
+      className="fixed bottom-14 left-2 sm:left-4 z-50 w-90 sm:w-100 max-w-[calc(100vw-16px)] rounded-2xl bg-[#0f172a]/95 backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden text-white flex flex-col animate-in fade-in slide-in-from-bottom-3 duration-200"
     >
       {/* User Profile Header */}
       <div className="p-4 bg-white/5 border-b border-white/10 flex items-center gap-3.5">
