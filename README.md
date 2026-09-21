@@ -19,7 +19,7 @@
 
 ### 🌟 Desktop Demo Preview
 
-![Windows OS Desktop Portfolio Demo](./public/demos/demo-portfolio.png)
+![Windows OS Desktop Portfolio Demo](./my-portfolio/public/demos/demo-portfolio.png)
 
 </div>
 
@@ -36,7 +36,7 @@ Trang web ứng dụng thư viện **GSAP (GreenSock Animation Platform)** để
 ## ✨ Tính Năng Nổi Bật (Key Features)
 
 ### 1. 🖥️ Giao Diện Màn Hình Desktop Windows
-- **Hình nền đồng cỏ & bầu trời xanh**: Hình nền kinh điển chất lượng cao phủ kín viewport (`public/samples/backgorund-home.png`).
+- **Hình nền đồng cỏ & bầu trời xanh**: Hình nền kinh điển chất lượng cao phủ kín viewport.
 - **Chữ nghệ thuật Retro Groovy**: Dòng chữ vòm cong nổi bật `TRẦN TRUNG NGUYÊN` cùng chữ viết tay `Portfolio` màu vàng ấm áp.
 - **Icon thư mục Desktop**: 3 thư mục chính (`About Me`, `Projects`, `Contact`) hỗ trợ click chọn khung viền xanh Windows và **double-click** (hoặc chạm trên điện thoại) để mở cửa sổ.
 
@@ -139,28 +139,47 @@ my-portfolio/
 
 ## 🚀 Hướng Dẫn Cài Đặt & Chạy (Getting Started)
 
-```bash
-# 1. Cài đặt dependencies
-npm install
+### Yêu cầu môi trường
+- **Node.js**: phiên bản `>= 18.18.0` hoặc `20.x` / `22.x`
+- **npm** hoặc **yarn** / **pnpm**
 
-# 2. Chạy môi trường phát triển
-npm run dev
+### Các bước cài đặt
 
-# 3. Chạy kiểm thử tự động
-npm test
+1. **Clone repository**:
+   ```bash
+   git clone https://github.com/trtrnguyen14104/trtrnguyen14104.github.io.git
+   cd trtrnguyen14104.github.io/my-portfolio
+   ```
 
-# 4. Biên dịch sản phẩm
-npm run build
-npm run start
-```
+2. **Cài đặt các gói phụ thuộc**:
+   ```bash
+   npm install
+   ```
+
+3. **Chạy máy chủ phát triển (Development mode)**:
+   ```bash
+   npm run dev
+   ```
+   Mở trình duyệt và truy cập: [http://localhost:3000](http://localhost:3000)
+
+4. **Chạy kiểm thử tự động (Unit & Integration Tests)**:
+   ```bash
+   npm test
+   ```
+
+5. **Biên dịch sản phẩm (Production Build)**:
+   ```bash
+   npm run build
+   npm run start
+   ```
 
 ---
 
 ## 🖼️ Hướng Dẫn Bổ Sung Ảnh Chụp Dự Án (Mock Images)
 
 Để thay đổi ảnh chụp màn hình thực tế cho các dự án:
-1. Đặt ảnh chụp màn hình vào thư mục `public/mockups/` (hoặc `public/demos/`).
-2. Mở file [`data/portfolioData.ts`](./data/portfolioData.ts) và cập nhật:
+1. Đặt ảnh chụp màn hình vào thư mục `my-portfolio/public/mockups/` (hoặc `public/demos/`).
+2. Mở file [`my-portfolio/data/portfolioData.ts`](./my-portfolio/data/portfolioData.ts) và cập nhật đường dẫn:
    ```typescript
    mockImages: {
      left: '/mockups/project1-left.png',    // Ảnh thẻ nghiêng góc trái (tỉ lệ 3:4 hoặc 4:3)
@@ -168,7 +187,7 @@ npm run start
      right: '/mockups/project1-right.png',  // Ảnh thẻ nghiêng góc phải (tỉ lệ 3:4 hoặc 4:3)
    }
    ```
-Xem hướng dẫn chi tiết tại [docs/MOCK_IMAGES_GUIDE.md](./docs/MOCK_IMAGES_GUIDE.md).
+Xem hướng dẫn chi tiết tại [docs/MOCK_IMAGES_GUIDE.md](./my-portfolio/docs/MOCK_IMAGES_GUIDE.md).
 
 ---
 
