@@ -111,19 +111,34 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
 
           {/* Quick Badges: Role, Location, Status */}
           <div className="flex flex-wrap items-center gap-2.5 text-xs sm:text-sm font-medium">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-sm">
-              <Briefcase className="w-3.5 h-3.5 text-[#ffd000]" />
-              <span>{profile.role}</span>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-sm">
+              {/* <Briefcase className="w-3.5 h-3.5 text-[#ffd000]" /> */}
+              <span className="text-3xl" style={{
+                  fontFamily:
+                    "'Pacifico', 'Brush Script MT', 'Caveat', cursive, sans-serif",
+                  textShadow:
+                    "2px 2px 0px #2d4a04, 3px 4px 8px rgba(0,0,0,0.3)",
+                }}>{profile.role}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-sm">
-              <MapPin className="w-3.5 h-3.5 text-red-300" />
-              <span>{profile.location}</span>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-sm">
+              {/* <MapPin className="w-3.5 h-3.5 text-red-300" /> */}
+              <span className="text-3xl" style={{
+                  fontFamily:
+                    "'Pacifico', 'Brush Script MT', 'Caveat', cursive, sans-serif",
+                  textShadow:
+                    "2px 2px 0px #2d4a04, 3px 4px 8px rgba(0,0,0,0.3)",
+                }}>{profile.location}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/25 backdrop-blur-md border border-emerald-400/40 text-emerald-200 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{profile.status}</span>
+            <div className="flex items-center gap-1.5 px-3 py-1.5">
+              {/* <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" /> */}
+              <span className="text-3xl text-[#b8ff52]" style={{
+                  fontFamily:
+                    "'Pacifico', 'Brush Script MT', 'Caveat', cursive, sans-serif",
+                  textShadow:
+                    "2px 2px 0px #2d4a04, 3px 4px 8px rgba(0,0,0,0.3)",
+                }}>{profile.status}</span>
             </div>
           </div>
 
@@ -166,7 +181,12 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/80">
                 <Code2 className="w-4 h-4 text-[#ffd000]" />
-                <span>Core Technologies & Skills</span>
+                <span className="text-[#ffd000] text-xl" style={{
+                  fontFamily:
+                    "'Pacifico', 'Brush Script MT', 'Caveat', cursive, sans-serif",
+                  textShadow:
+                    "2px 2px 0px #2d4a04, 3px 4px 8px rgba(0,0,0,0.3)",
+                }}>Core Technologies & Skills</span>
               </div>
               {activeSkillObj && (
                 <span className="text-xs text-[#b8ff52] font-medium bg-black/20 px-2 py-0.5 rounded-md border border-white/10">
@@ -254,7 +274,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
                 <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
                 {/* Bottom Sticker Pill on Photo */}
-                <div className="absolute bottom-3 left-3 right-3 bg-slate-900/85 backdrop-blur-md text-white px-3 py-2 rounded-xl border border-white/20 shadow-lg flex items-center justify-between">
+                {/* <div className="absolute bottom-3 left-3 right-3 bg-slate-900/85 backdrop-blur-md text-white px-3 py-2 rounded-xl border border-white/20 shadow-lg flex items-center justify-between">
                   <div className="flex flex-col min-w-0">
                     <span className="text-xs font-bold text-white truncate">
                       {profile.name}
@@ -263,14 +283,13 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
                       {profile.role}
                     </span>
                   </div>
-                  <Sparkles className="w-4 h-4 text-[#ffd000] shrink-0 ml-2 animate-spin-slow" />
-                </div>
+                </div> */}
               </div>
             </div>
 
             {/* Decorative retro sticker badge floating at top right */}
             <div className="absolute -top-3 -right-2 bg-[#ffd000] text-slate-950 font-black text-[11px] uppercase tracking-wider px-3 py-1 rounded-full shadow-lg border-2 border-white transform rotate-10 group-hover:rotate-[5deg] transition-transform">
-              🇻🇳 Vietnam
+              Full-Stack Dev
             </div>
           </div>
         </div>
