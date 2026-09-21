@@ -3,10 +3,6 @@
 # 🖥️ Trần Trung Nguyên — Windows OS Portfolio
 
 <p align="center">
-  <strong>An interactive, retro-modern Windows OS desktop portfolio built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, and GSAP.</strong>
-</p>
-
-<p align="center">
   <img src="https://img.shields.io/badge/Next.js-16.3.5-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/React-19.2.8-blue?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
@@ -16,8 +12,6 @@
 </p>
 
 ---
-
-### 🌟 Desktop Demo Preview
 
 ![Windows OS Desktop Portfolio Demo](./my-portfolio/public/demos/demo-portfolio.png)
 
