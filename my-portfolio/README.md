@@ -36,11 +36,13 @@ Trang web ứng dụng thư viện **GSAP (GreenSock Animation Platform)** để
 ## ✨ Tính Năng Nổi Bật (Key Features)
 
 ### 1. 🖥️ Giao Diện Màn Hình Desktop Windows
+
 - **Hình nền đồng cỏ & bầu trời xanh**: Hình nền kinh điển chất lượng cao phủ kín viewport (`public/samples/backgorund-home.png`).
 - **Chữ nghệ thuật Retro Groovy**: Dòng chữ vòm cong nổi bật `TRẦN TRUNG NGUYÊN` cùng chữ viết tay `Portfolio` màu vàng ấm áp.
 - **Icon thư mục Desktop**: 3 thư mục chính (`About Me`, `Projects`, `Contact`) hỗ trợ click chọn khung viền xanh Windows và **double-click** (hoặc chạm trên điện thoại) để mở cửa sổ.
 
 ### 2. 🪟 Quản Lý Cửa Sổ & Hoạt Ảnh GSAP (Window Management)
+
 - **Hiệu ứng mở Folder**: Cửa sổ bung nở mượt mà từ chính tọa độ của icon thư mục với độ nảy nhẹ (`back.out(1.2)`).
 - **Vỏ cửa sổ File Explorer chuẩn xác**:
   - Thanh tiêu đề hỗ trợ kéo thả (drag) tự do trên desktop và giới hạn trong màn hình.
@@ -51,6 +53,7 @@ Trang web ứng dụng thư viện **GSAP (GreenSock Animation Platform)** để
   - Thanh công cụ Explorer: Nút Back, Forward, Refresh, thanh địa chỉ breadcrumb (`This PC > Portfolio > [Folder]`) và ô tìm kiếm nội bộ.
 
 ### 3. 💼 Thư Mục "Projects" — 3D Laptop Showcase
+
 - **Mô phỏng laptop chân thực**: Khung kim loại, bàn phím, camera notch và màn hình góc nhìn rộng.
 - **Bố cục 3 thẻ bài xòe cánh quạt (3-Card Fan-Out)**:
   - Thẻ trái nghiêng -14°
@@ -62,12 +65,14 @@ Trang web ứng dụng thư viện **GSAP (GreenSock Animation Platform)** để
 - **Hệ thống ảnh Mock**: Cấu hình sẵn đường dẫn mặc định trong `data/portfolioData.ts`, kèm giao diện thẻ kính mờ dự phòng khi chưa tải ảnh thật.
 
 ### 4. 👤 Thư Mục "About Me"
+
 - Nền gradient xanh dương đậm chất retro.
 - Tiêu đề nghệ thuật `hi, its Nguyen!` và phụ đề `what i do` kèm trỏ chuột pixel retro.
-- Giới thiệu chi tiết kỹ năng, định hướng nghề nghiệp, vị trí TP.HCM và trạng thái *Open to work*.
+- Giới thiệu chi tiết kỹ năng, định hướng nghề nghiệp, vị trí TP.HCM và trạng thái _Open to work_.
 - Ảnh chân dung chính chủ và các chip kỹ năng tương tác click để xem chi tiết.
 
 ### 5. 📬 Thư Mục "Contact"
+
 - Tiêu đề `Let's Work` và phụ đề `contact me`.
 - Các nút bấm dạng viên thuốc (Pill buttons):
   - 🔵 `FOLLOW ME @trtrnguyen14104` (Liên kết GitHub)
@@ -77,6 +82,7 @@ Trang web ứng dụng thư viện **GSAP (GreenSock Animation Platform)** để
 - Hộp thư soạn thảo phong cách cổ điển Outlook Express / Windows Mail để gửi tin nhắn trực tiếp.
 
 ### 6. 📊 Thanh Tác Vụ Taskbar & System Tray
+
 - Thanh tác vụ dưới cùng với hiệu ứng kính mờ acrylic (`backdrop-blur-md`).
 - Nút Start menu `☰` mở bảng điều khiển thông tin cá nhân và phím tắt mở thư mục.
 - Thanh tìm kiếm bo tròn hỗ trợ tìm nhanh ứng dụng và dự án.
@@ -87,15 +93,15 @@ Trang web ứng dụng thư viện **GSAP (GreenSock Animation Platform)** để
 
 ## 🛠️ Công Nghệ Sử Dụng (Tech Stack)
 
-| Thành phần | Công nghệ / Thư viện | Mục đích |
-|---|---|---|
-| **Core Framework** | [Next.js 16 (App Router)](https://nextjs.org/) | SSR, Static Site Generation, Turbopack |
-| **UI Library** | [React 19](https://react.dev/) | Xây dựng component giao diện |
-| **Language** | [TypeScript 5](https://www.typescriptlang.org/) | Định kiểu tĩnh và an toàn mã nguồn |
-| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | Styling hiện đại với `@theme inline` |
-| **Animations** | [GSAP 3](https://greensock.com/gsap/) | Điều khiển chuyển động cửa sổ, bounce và 3D |
-| **Icons** | [Lucide React](https://lucide.dev/) + Retro Icons | Hệ thống icon hệ thống và Windows pixel |
-| **Testing** | [Vitest](https://vitest.dev/) + Testing Library | 69 unit & integration tests (100% pass) |
+| Thành phần         | Công nghệ / Thư viện                              | Mục đích                                    |
+| ------------------ | ------------------------------------------------- | ------------------------------------------- |
+| **Core Framework** | [Next.js 16 (App Router)](https://nextjs.org/)    | SSR, Static Site Generation, Turbopack      |
+| **UI Library**     | [React 19](https://react.dev/)                    | Xây dựng component giao diện                |
+| **Language**       | [TypeScript 5](https://www.typescriptlang.org/)   | Định kiểu tĩnh và an toàn mã nguồn          |
+| **Styling**        | [Tailwind CSS v4](https://tailwindcss.com/)       | Styling hiện đại với `@theme inline`        |
+| **Animations**     | [GSAP 3](https://greensock.com/gsap/)             | Điều khiển chuyển động cửa sổ, bounce và 3D |
+| **Icons**          | [Lucide React](https://lucide.dev/) + Retro Icons | Hệ thống icon hệ thống và Windows pixel     |
+| **Testing**        | [Vitest](https://vitest.dev/) + Testing Library   | 69 unit & integration tests (100% pass)     |
 
 ---
 
@@ -159,6 +165,7 @@ npm run start
 ## 🖼️ Hướng Dẫn Bổ Sung Ảnh Chụp Dự Án (Mock Images)
 
 Để thay đổi ảnh chụp màn hình thực tế cho các dự án:
+
 1. Đặt ảnh chụp màn hình vào thư mục `public/mockups/` (hoặc `public/demos/`).
 2. Mở file [`data/portfolioData.ts`](./data/portfolioData.ts) và cập nhật:
    ```typescript
@@ -168,7 +175,7 @@ npm run start
      right: '/mockups/project1-right.png',  // Ảnh thẻ nghiêng góc phải (tỉ lệ 3:4 hoặc 4:3)
    }
    ```
-Xem hướng dẫn chi tiết tại [docs/MOCK_IMAGES_GUIDE.md](./docs/MOCK_IMAGES_GUIDE.md).
+   Xem hướng dẫn chi tiết tại [docs/MOCK_IMAGES_GUIDE.md](./docs/MOCK_IMAGES_GUIDE.md).
 
 ---
 
