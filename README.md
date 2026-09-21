@@ -42,5 +42,5 @@
 ---
 
 <div align="center">
-  <sub>Thiết kế và phát triển với đam mê bởi <strong>Trần Trung Nguyên</strong> © 2026.</sub>
+  <sub>Designed and developed with passion by <strong>Tran Trung Nguyen</strong> © 2026.</sub>
 </div>
