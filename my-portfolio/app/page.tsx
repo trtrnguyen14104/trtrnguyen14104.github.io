@@ -2,12 +2,15 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useWindowManager, WindowId } from "@/hooks/useWindowManager";
+import { useFirstLoadBoot } from "@/hooks/useFirstLoadBoot";
 import { Desktop } from "@/components/windows/Desktop";
 import { Taskbar } from "@/components/windows/Taskbar";
 import { WindowFrame } from "@/components/windows/WindowFrame";
 import { AboutMeContent } from "@/components/windows/AboutMeContent";
+import { ExperienceContent } from "@/components/windows/ExperienceContent";
 import { ProjectsContent } from "@/components/windows/ProjectsContent";
 import { ContactContent } from "@/components/windows/ContactContent";
+import { BootScreen } from "@/components/windows/BootScreen";
 import { animateFolderOpen, animateWindowMinimize } from "@/utils/gsapAnimations";
 
 export default function Home() {
@@ -22,11 +25,14 @@ export default function Home() {
     updatePosition,
   } = useWindowManager();
 
+  const { booted, hasBootedThisSession, markBooted } = useFirstLoadBoot();
+
   const [selectedFolderId, setSelectedFolderId] = useState<WindowId | null>(null);
 
   // Track previous open state of each window to trigger GSAP zoom animation from folder icon on open
   const prevOpenRef = useRef<Record<WindowId, boolean>>({
     "about-me": false,
+    experience: false,
     projects: false,
     contact: false,
   });
@@ -39,6 +45,7 @@ export default function Home() {
       if (!wasOpen && isOpen) {
         const folderLabelMap: Record<WindowId, string> = {
           "about-me": "About Me",
+          experience: "Experience",
           projects: "Projects",
           contact: "Contact",
         };
@@ -121,6 +128,7 @@ export default function Home() {
         selectedFolderId={selectedFolderId}
         onSelectFolder={setSelectedFolderId}
         onOpenFolder={handleOpenFolder}
+        introReady={booted}
       >
         {/* About Me Window Frame */}
         <WindowFrame
@@ -142,6 +150,28 @@ export default function Home() {
           onPositionChange={(pos) => updatePosition("about-me", pos)}
         >
           <AboutMeContent />
+        </WindowFrame>
+
+        {/* Experience Window Frame */}
+        <WindowFrame
+          id="experience"
+          title={windows["experience"].title}
+          icon={windows["experience"].icon}
+          isOpen={windows["experience"].isOpen}
+          isMinimized={windows["experience"].isMinimized}
+          isMaximized={windows["experience"].isMaximized}
+          zIndex={windows["experience"].zIndex}
+          position={windows["experience"].position}
+          size={windows["experience"].size}
+          folderName="Experience"
+          statusText="Work history & education"
+          onClose={() => closeWindow("experience")}
+          onMinimize={() => minimizeWindow("experience")}
+          onMaximize={() => maximizeWindow("experience")}
+          onFocus={() => bringToFront("experience")}
+          onPositionChange={(pos) => updatePosition("experience", pos)}
+        >
+          <ExperienceContent />
         </WindowFrame>
 
         {/* Projects Window Frame */}
@@ -198,6 +228,9 @@ export default function Home() {
         onBringToFront={bringToFront}
         onRestartPortfolio={handleRestartPortfolio}
       />
+
+      {/* First-load only: Windows XP boot screen, covers the whole screen until done */}
+      {!hasBootedThisSession && <BootScreen onComplete={markBooted} />}
     </main>
   );
 }

@@ -11,6 +11,7 @@
   --font-sans: var(--font-plus-jakarta-sans), var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-cursive: var(--font-pacifico), "Pacifico", "Brush Script MT", cursive;
+  --font-xp: var(--font-roboto), "Roboto", system-ui, sans-serif;
 }
 
 body {
@@ -75,7 +76,39 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* 4. Retro Pixel Cursor Option */
+/* 4. Animated Cloud Layer (the wallpaper clouds drift left to right) */
+.cloud-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cloud-strip {
+  position: absolute;
+  inset: 0;
+}
+
+/* Transformed only (never resized) by GSAP so the strip stays rasterized */
+.cloud-drift {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+/* Same object-cover box as the wallpaper and hill, so the clouds stay glued
+   to the horizon on any viewport aspect ratio */
+.cloud-tile {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 5. Retro Pixel Cursor Option */
 .pixel-cursor,
 .pixel-cursor * {
   cursor: url("/icons/cursor.png"), auto;

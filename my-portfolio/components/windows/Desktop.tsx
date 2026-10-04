@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { DesktopIcon } from "./DesktopIcon";
 import { HeroTypography } from "./HeroTypography";
+import { CloudLayer } from "./CloudLayer";
 import { animateDesktopIntro } from "@/utils/gsapAnimations";
 import { WindowId } from "@/hooks/useWindowManager";
 
@@ -17,6 +18,11 @@ export const DEFAULT_DESKTOP_FOLDERS: DesktopFolder[] = [
   {
     id: "about-me",
     label: "About Me",
+    icon: "/icons/Windows-FOLDER.png",
+  },
+  {
+    id: "experience",
+    label: "Experience",
     icon: "/icons/Windows-FOLDER.png",
   },
   {
@@ -37,6 +43,9 @@ export interface DesktopProps {
   onSelectFolder?: (id: WindowId | null) => void;
   folders?: DesktopFolder[];
   wallpaperSrc?: string;
+  hillSrc?: string;
+  /** Holds the intro animation back, e.g. while the boot screen still covers the desktop. */
+  introReady?: boolean;
   children?: React.ReactNode;
   className?: string;
 }
@@ -46,7 +55,9 @@ export function Desktop({
   selectedFolderId,
   onSelectFolder,
   folders = DEFAULT_DESKTOP_FOLDERS,
-  wallpaperSrc = "/samples/backgorund-home.png",
+  wallpaperSrc = "/samples/background-home-sky.webp",
+  hillSrc = "/samples/background-home-hill.webp",
+  introReady = true,
   children,
   className = "",
 }: DesktopProps) {
@@ -56,10 +67,10 @@ export function Desktop({
   const activeSelectedId = selectedFolderId !== undefined ? selectedFolderId : internalSelectedId;
 
   useEffect(() => {
-    if (desktopRef.current) {
+    if (introReady && desktopRef.current) {
       animateDesktopIntro(desktopRef.current);
     }
-  }, []);
+  }, [introReady]);
 
   const handleSelect = (id: WindowId | string) => {
     const winId = id as WindowId;
@@ -109,8 +120,22 @@ export function Desktop({
         />
       </div>
 
+      {/* Drifting Cloud Layer (clouds travel across the sky) */}
+      <CloudLayer />
+
+      {/* Hill Layer: transparent above the horizon, so the hill trims the clouds */}
+      <div className="absolute inset-0 z-2 pointer-events-none">
+        <Image
+          src={hillSrc}
+          alt="" data-testid="desktop-hill"
+          fill
+          sizes="100vw"
+          className="object-cover object-center pointer-events-none select-none"
+        />
+      </div>
+
       {/* Hero Typography Layer */}
-      <div className="absolute inset-0 z-1 flex items-center justify-center pointer-events-none pb-20 sm:pb-28 md:pb-36 px-4">
+      <div className="absolute inset-0 z-3 flex items-center justify-center pointer-events-none pb-20 sm:pb-28 md:pb-36 px-4">
         <HeroTypography />
       </div>
 

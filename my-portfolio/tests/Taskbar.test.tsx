@@ -17,6 +17,17 @@ const mockWindows: Record<WindowId, WindowConfig> = {
     position: { x: 0, y: 0 },
     size: { width: 500, height: 400 },
   },
+  experience: {
+    id: "experience",
+    title: "Experience",
+    icon: "/icons/Windows-FOLDER.png",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 10,
+    position: { x: 0, y: 0 },
+    size: { width: 500, height: 400 },
+  },
   projects: {
     id: "projects",
     title: "Projects",

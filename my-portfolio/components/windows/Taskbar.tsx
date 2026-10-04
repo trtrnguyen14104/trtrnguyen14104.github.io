@@ -88,6 +88,17 @@ export function Taskbar({
     if (query.includes("about") || query.includes("bio") || query.includes("skill")) {
       onOpenWindow("about-me");
       setSearchQuery("");
+    } else if (
+      query.includes("experience") ||
+      query.includes("resume") ||
+      query.includes("cv") ||
+      query.includes("internship") ||
+      query.includes("education") ||
+      query.includes("career") ||
+      query.includes("jdo")
+    ) {
+      onOpenWindow("experience");
+      setSearchQuery("");
     } else if (query.includes("project") || query.includes("work") || query.includes("quiz")) {
       onOpenWindow("projects");
       setSearchQuery("");

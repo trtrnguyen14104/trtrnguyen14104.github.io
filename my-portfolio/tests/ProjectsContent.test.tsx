@@ -167,6 +167,29 @@ describe("ProjectsContent Component", () => {
       expect(screen.getByText(/project 1/i)).toBeInTheDocument();
     });
 
+    it("renders the project screenshots inside the three fan cards", () => {
+      render(<ProjectsContent />);
+
+      fireEvent.click(screen.getByRole("button", { name: /02_AloChat/i }));
+
+      expect(
+        screen.getByAltText(/Social Media AloChat - Left Preview/i)
+      ).toHaveAttribute("src", "/pictures/Alochat/alochat-login.webp");
+      expect(
+        screen.getByAltText(/Social Media AloChat - Main Preview/i)
+      ).toHaveAttribute("src", "/pictures/Alochat/alochat-chat.webp");
+      expect(
+        screen.getByAltText(/Social Media AloChat - Right Preview/i)
+      ).toHaveAttribute("src", "/pictures/Alochat/alochat-project-detail.webp");
+
+      fireEvent.click(screen.getByRole("button", { name: /03_Research_System/i }));
+
+      expect(
+        screen.getByAltText(/Research Data Management System - Main Preview/i)
+      ).toHaveAttribute("src", "/pictures/rdms/rdms-home.webp");
+      expect(screen.queryByTestId("fallback-card-main")).not.toBeInTheDocument();
+    });
+
     it("displays clean fallback card when an image fails to load", () => {
       const project = portfolioData.projects[0];
       render(<LaptopMockup project={project} />);

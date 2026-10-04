@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 
-export type WindowId = "about-me" | "projects" | "contact";
+export type WindowId = "about-me" | "experience" | "projects" | "contact";
 
 export interface WindowConfig {
   id: WindowId;
@@ -29,6 +29,17 @@ const INITIAL_WINDOWS: Record<WindowId, WindowConfig> = {
     zIndex: 10,
     position: { x: 80, y: 50 },
     size: { width: 920, height: 600 },
+  },
+  experience: {
+    id: "experience",
+    title: "Experience - File Explorer",
+    icon: "/icons/Windows-FOLDER.png",
+    isOpen: false,
+    isMinimized: false,
+    isMaximized: false,
+    zIndex: 10,
+    position: { x: 140, y: 60 },
+    size: { width: 900, height: 620 },
   },
   projects: {
     id: "projects",

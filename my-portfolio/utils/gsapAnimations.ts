@@ -159,6 +159,189 @@ export function animateWindowClose(
 }
 
 /**
+ * Starts the endless left-to-right drift of every `.cloud-drift` strip inside the
+ * given layer. Each strip holds three copies of the same horizontally seamless
+ * layer, so travelling exactly one screen width to the right wraps the loop
+ * without ever showing an edge. A slow vertical bob keeps the clouds alive.
+ * Honours `prefers-reduced-motion` by leaving the clouds in their static layout.
+ */
+export function animateCloudDrift(cloudLayerEl: HTMLElement) {
+  if (!cloudLayerEl) {
+    return [];
+  }
+
+  const strips = Array.from(
+    cloudLayerEl.querySelectorAll<HTMLElement>(".cloud-drift"),
+  );
+
+  if (!strips.length) {
+    return [];
+  }
+
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion) {
+    return [];
+  }
+
+  const tweens: gsap.core.Tween[] = [];
+
+  strips.forEach((strip, index) => {
+    // The strip fills the desktop, so one screen width is one full copy
+    const travel = strip.offsetWidth || window.innerWidth || 1920;
+    const duration = Number(strip.dataset.duration) || 70;
+    const bob = Number(strip.dataset.bob) || 0;
+
+    // One screen width to the right, so the strip re-enters exactly where it started
+    tweens.push(
+      gsap.fromTo(
+        strip,
+        { x: -travel },
+        {
+          x: 0,
+          duration,
+          repeat: -1,
+          ease: "none",
+        },
+      ),
+    );
+
+    if (bob) {
+      tweens.push(
+        gsap.to(strip, {
+          y: bob,
+          duration: 16 + index * 10,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        }),
+      );
+    }
+  });
+
+  return tweens;
+}
+
+/** Duration of the whole boot screen timeline, in seconds. */
+export const BOOT_SEQUENCE_DURATION = 3.5;
+
+/**
+ * Number of boot status messages swapped while the bar fills. Each entry is
+ * paired with the timeline time (in seconds) it appears at.
+ */
+const BOOT_STATUS_STEPS: { at: number; text: string }[] = [
+  { at: 1, text: "Loading personal portfolio" },
+  { at: 2, text: "Preparing desktop" },
+];
+
+/**
+ * Animates the Windows XP style first-load boot screen: the logo fades in, the
+ * loading bar fills while its highlight blocks stream endlessly, the status line
+ * swaps through a few messages, then the whole overlay fades out to reveal the
+ * desktop. Calls `onComplete` right after the fade so the caller can unmount the
+ * overlay and play the desktop intro.
+ *
+ * Call `timeline.timeScale(4)` on the returned timeline to fast-forward the tail
+ * fade, which is how the "tap to skip" affordance is wired up.
+ */
+export function animateBootSequence(
+  rootEl: HTMLElement,
+  onComplete?: () => void,
+) {
+  const tl = gsap.timeline();
+
+  if (!rootEl) {
+    onComplete?.();
+    return tl;
+  }
+
+  const logo = rootEl.querySelector(".boot-logo");
+  const bar = rootEl.querySelector(".boot-bar");
+  const fill = rootEl.querySelector(".boot-bar-fill");
+  const blocks = rootEl.querySelectorAll(".boot-bar-block");
+  const status = rootEl.querySelector(".boot-status");
+
+  const fadeOutAt = BOOT_SEQUENCE_DURATION - 0.5;
+
+  if (logo) {
+    tl.fromTo(
+      logo,
+      { opacity: 0, y: -8 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+      0,
+    );
+  }
+
+  if (bar) {
+    tl.fromTo(
+      bar,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.35, ease: "power1.out" },
+      0.3,
+    );
+  }
+
+  // The highlight blocks loop forever, like the original splash screen, so they
+  // are independent of the one-shot fill and keep moving through the fade out
+  if (blocks.length) {
+    blocks.forEach((block) => {
+      gsap.fromTo(
+        block,
+        { x: -30 },
+        {
+          x: 150,
+          duration: 2,
+          repeat: -1,
+          ease: "none",
+          delay: -0.66,
+        },
+      );
+    });
+  }
+
+  if (fill) {
+    tl.fromTo(
+      fill,
+      { scaleX: 0 },
+      {
+        scaleX: 1,
+        duration: fadeOutAt - 0.3,
+        ease: "power1.inOut",
+      },
+      0.3,
+    );
+  }
+
+  if (status) {
+    BOOT_STATUS_STEPS.forEach(({ at, text }) => {
+      tl.call(
+        () => {
+          status.textContent = text;
+        },
+        undefined,
+        at,
+      );
+    });
+  }
+
+  tl.to(
+    rootEl,
+    {
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.inOut",
+      onComplete,
+    },
+    fadeOutAt,
+  );
+
+  return tl;
+}
+
+/**
  * Animates the initial desktop reveal: typography, desktop folder icons, and taskbar.
  */
 export function animateDesktopIntro(desktopEl: HTMLElement) {

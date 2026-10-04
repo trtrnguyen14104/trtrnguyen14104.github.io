@@ -149,7 +149,7 @@ export function ContactContent({ className = "" }: ContactContentProps) {
     <div
       className={`relative min-h-full w-full overflow-y-auto select-none bg-[#3b82f6] text-white flex flex-col items-center ${className}`}
       style={{
-        backgroundImage: "url('/samples/backgorund-home.png')",
+        backgroundImage: "url('/samples/background-home-sky.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center bottom",
         backgroundAttachment: "local",

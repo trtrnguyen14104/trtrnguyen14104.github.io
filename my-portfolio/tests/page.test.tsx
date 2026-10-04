@@ -64,6 +64,20 @@ describe("Portfolio Home Page Integration", () => {
     });
   });
 
+  it("opens Experience window on folder double-click", async () => {
+    render(<Page />);
+
+    const experienceFolder = screen.getByRole("button", { name: "Experience" });
+    fireEvent.doubleClick(experienceFolder);
+
+    const dialog = await screen.findByRole("dialog", { name: /Experience/i });
+    expect(dialog).toBeInTheDocument();
+    expect(screen.getByText(/my journey/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /where i have worked/i })
+    ).toBeInTheDocument();
+  });
+
   it("opens Projects window on folder double-click and keyboard Enter", async () => {
     render(<Page />);
 

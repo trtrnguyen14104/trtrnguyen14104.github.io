@@ -38,9 +38,9 @@ export const portfolioData: PortfolioData = {
       bgColor: "#a3d95b",
       accentColor: "#ffffff",
       mockImages: {
-        left: "/samples/project-1.png",
-        main: "/samples/project-1.png",
-        right: "/samples/project-1.png",
+        left: "/pictures/quizlearn/quizlearn-library.png",
+        main: "/pictures/quizlearn/quizlearn-result.png",
+        right: "/pictures/quizlearn/quizlearn-dashboard.png",
       },
       links: {
         github: "https://github.com/trtrnguyen14104/Quiz_app",
@@ -57,9 +57,9 @@ export const portfolioData: PortfolioData = {
       bgColor: "#4a69e2",
       accentColor: "#ffffff",
       mockImages: {
-        left: "/samples/project-2.png",
-        main: "/samples/project-2.png",
-        right: "/samples/project-2.png",
+        left: "/pictures/Alochat/alochat-login.webp",
+        main: "/pictures/Alochat/alochat-chat.webp",
+        right: "/pictures/Alochat/alochat-project-detail.webp",
       },
       links: {
         github: "https://github.com/trtrnguyen14104/Social-Media-AloChat",
@@ -76,9 +76,9 @@ export const portfolioData: PortfolioData = {
       bgColor: "#f4c430",
       accentColor: "#ffffff",
       mockImages: {
-        left: "/samples/project-3.png",
-        main: "/samples/project-3.png",
-        right: "/samples/project-3.png",
+        left: "/pictures/rdms/rdms-library.webp",
+        main: "/pictures/rdms/rdms-home.webp",
+        right: "/pictures/rdms/rdms-stats.webp",
       },
       links: {
         github: "https://github.com/NTriCuong/Research-data-managerment-system",
@@ -102,6 +102,41 @@ export const portfolioData: PortfolioData = {
       links: {
         github: "https://github.com/trtrnguyen14104?tab=repositories",
       },
+    },
+  ],
+  experience: [
+    {
+      id: "jdo-group",
+      role: "Software Engineer Intern",
+      company: "JDO Group",
+      employmentType: "Internship",
+      period: "Aug. 2026 — Present",
+      location: "Ho Chi Minh City, Vietnam",
+      teamSize: "Team of 2",
+      summary:
+        "Multi-tenant SaaS platform for education products — billing, subscriptions, SSO launch and an admin portal, shipped to production through Docker and GitLab CI.",
+      tech: ["Go", "PostgreSQL", "Next.js", "Docker", "GitLab CI"],
+      highlights: [
+        "Implemented JWT verification and org-scoped RBAC across 3 roles, recording every privileged action to an append-only audit trail including denials, replacing an email-heuristic admin grant that could not be revoked.",
+        "Built the subscription lifecycle and billing core with a pluggable VNPay adapter, replay-safe webhook settlement, and a single-use 60-second SSO ticket for application launch.",
+        "Added a transactional outbox driving 5 in-process background workers, Server-Sent Events notifications, and Vietnamese diacritic-insensitive PostgreSQL full-text search.",
+        "Shipped Docker and GitLab CI auto-deployment for both applications.",
+      ],
+      isCurrent: true,
+    },
+  ],
+  education: [
+    {
+      id: "saigon-technology-university",
+      institution: "Saigon Technology University",
+      degree: "Bachelor of Engineering in Information Technology",
+      period: "Oct. 2022 — Expected Nov. 2026",
+      location: "Ho Chi Minh City, Vietnam",
+      gpa: "GPA: 3.16/4.0",
+      highlights: [
+        "Academic Encouragement Scholarship",
+        "Graduation thesis: Research Data Management System (RDMS)",
+      ],
     },
   ],
 };

@@ -122,22 +122,31 @@ describe("Desktop Component", () => {
   });
 
   it("renders wallpaper, default folder icons, and hero typography", () => {
-    render(<Desktop />);
+    const { container } = render(<Desktop />);
 
-    // Wallpaper
+// Wallpaper (cloud-free sky, the wallpaper clouds are animated on top of it)
     const wallpaper = screen.getByAltText(/desktop wallpaper/i);
     expect(wallpaper).toBeInTheDocument();
-    expect(wallpaper.getAttribute("src")).toContain("backgorund-home.png");
+    expect(wallpaper.getAttribute("src")).toContain("background-home-sky.webp");
+
+    // Drifting cloud layer sits above the wallpaper
+    expect(screen.getByTestId("cloud-layer")).toBeInTheDocument();
+    expect(container.querySelectorAll(".cloud-drift").length).toBeGreaterThan(0);
+
+    // Hill layer above the clouds trims them at the horizon
+    const hill = container.querySelector('img[data-testid="desktop-hill"]');
+    expect(hill?.getAttribute("src")).toContain("background-home-hill.webp");
 
     // Hero typography
     expect(screen.getByText(/TRẦN TRUNG NGUYÊN/i)).toBeInTheDocument();
     expect(screen.getByText(/Portfolio/i)).toBeInTheDocument();
 
-    // Default 3 folder icons arranged vertically
+    // Default folder icons arranged vertically
     expect(screen.getByText("About Me")).toBeInTheDocument();
+    expect(screen.getByText("Experience")).toBeInTheDocument();
     expect(screen.getByText("Projects")).toBeInTheDocument();
     expect(screen.getByText("Contact")).toBeInTheDocument();
-    expect(DEFAULT_DESKTOP_FOLDERS).toHaveLength(3);
+    expect(DEFAULT_DESKTOP_FOLDERS).toHaveLength(4);
   });
 
   it("triggers animateDesktopIntro on mount", () => {

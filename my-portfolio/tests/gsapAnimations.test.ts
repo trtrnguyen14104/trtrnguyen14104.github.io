@@ -1,4 +1,13 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import {
+  describe,
+  it,
+  expect,
+  vi,
+  beforeAll,
+  afterAll,
+  beforeEach,
+  afterEach,
+} from "vitest";
 import * as animations from "@/utils/gsapAnimations";
 import gsap from "gsap";
 
@@ -19,6 +28,209 @@ describe("gsapAnimations module", () => {
     expect(typeof animations.animateWindowRestore).toBe("function");
     expect(typeof animations.animateWindowClose).toBe("function");
     expect(typeof animations.animateDesktopIntro).toBe("function");
+    expect(typeof animations.animateCloudDrift).toBe("function");
+    expect(typeof animations.animateBootSequence).toBe("function");
+    expect(animations.BOOT_SEQUENCE_DURATION).toBe(3.5);
+  });
+
+  describe("animateBootSequence", () => {
+    const buildBootScreen = () => {
+      const rootEl = document.createElement("div");
+      rootEl.innerHTML = `
+        <div class="boot-logo">Windows</div>
+        <div class="boot-bar">
+          <div class="boot-bar-fill"></div>
+          <div class="boot-bar-block"></div>
+          <div class="boot-bar-block"></div>
+          <div class="boot-bar-block"></div>
+        </div>
+        <div class="boot-status">Starting Windows</div>
+      `;
+      document.body.appendChild(rootEl);
+      return rootEl;
+    };
+
+    it("fades in the logo, streams the blocks and fills the bar", () => {
+      const rootEl = buildBootScreen();
+      const logo = rootEl.querySelector<HTMLElement>(".boot-logo");
+      const block = rootEl.querySelector<HTMLElement>(".boot-bar-block");
+      const fill = rootEl.querySelector<HTMLElement>(".boot-bar-fill");
+
+      const tl = animations.animateBootSequence(rootEl);
+      tl.progress(0);
+
+      // Three looping highlight blocks, each travelling past the bar width
+      expect(gsap.getTweensOf(block as Element)).toHaveLength(1);
+      expect(gsap.getTweensOf(block as Element)[0].repeat()).toBe(-1);
+      expect(gsap.getTweensOf(block as Element)[0].duration()).toBe(2);
+
+      // The logo and the bar both start hidden, and the bar fill starts empty
+      expect(gsap.getProperty(logo as Element, "opacity")).toBe(0);
+      expect(gsap.getProperty(rootEl, "opacity")).not.toBe(0);
+      expect(gsap.getProperty(fill as Element, "scaleX")).toBe(0);
+
+      // Part way through, progress has been reported on the fill
+      tl.progress(0.5);
+      const midScale = Number(gsap.getProperty(fill as Element, "scaleX"));
+      expect(midScale).toBeGreaterThan(0);
+      expect(midScale).toBeLessThan(1);
+    });
+
+    it("runs the status messages and then fades the overlay out", () => {
+      const rootEl = buildBootScreen();
+      const status = rootEl.querySelector<HTMLElement>(".boot-status");
+
+      const onComplete = vi.fn();
+      const tl = animations.animateBootSequence(rootEl, onComplete);
+
+      // seek() suppresses callbacks unless told otherwise
+      tl.seek(0.9, false);
+      expect(status?.textContent).toBe("Starting Windows");
+
+      tl.seek(1.1, false);
+      expect(status?.textContent).toBe("Loading personal portfolio");
+
+      tl.seek(2.1, false);
+      expect(status?.textContent).toBe("Preparing desktop");
+
+      // Full length ends exactly when the overlay has faded out
+      expect(tl.duration()).toBeCloseTo(animations.BOOT_SEQUENCE_DURATION, 5);
+      tl.progress(1);
+      expect(gsap.getProperty(rootEl, "opacity")).toBe(0);
+      expect(onComplete).toHaveBeenCalledTimes(1);
+    });
+
+    it("replays the tail fade faster when the timeline is scaled up", () => {
+      const rootEl = buildBootScreen();
+
+      const tl = animations.animateBootSequence(rootEl);
+      tl.timeScale(4);
+
+      expect(tl.timeScale()).toBe(4);
+    });
+
+    it("handles a missing root element by completing immediately", () => {
+      const onComplete = vi.fn();
+
+      const tl = animations.animateBootSequence(
+        null as unknown as HTMLElement,
+        onComplete,
+      );
+
+      expect(tl).toBeDefined();
+      expect(onComplete).toHaveBeenCalledTimes(1);
+    });
+
+    it("survives a boot screen that is missing every optional part", () => {
+      const bareEl = document.createElement("div");
+      document.body.appendChild(bareEl);
+
+      let completed = false;
+      expect(() => {
+        animations.animateBootSequence(bareEl, () => {
+          completed = true;
+        }).progress(1);
+      }).not.toThrow();
+      expect(completed).toBe(true);
+    });
+  });
+
+  describe("animateCloudDrift", () => {
+    // jsdom has no layout, so the sprite width has to be faked for GSAP
+    const originalOffsetWidth = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      "offsetWidth",
+    );
+
+    beforeAll(() => {
+      Object.defineProperty(HTMLElement.prototype, "offsetWidth", {
+        configurable: true,
+        value: 1280,
+      });
+    });
+
+    afterAll(() => {
+      if (originalOffsetWidth) {
+        Object.defineProperty(
+          HTMLElement.prototype,
+          "offsetWidth",
+          originalOffsetWidth,
+        );
+      } else {
+        delete (HTMLElement.prototype as unknown as Record<string, unknown>)
+          .offsetWidth;
+      }
+    });
+
+    const buildLayer = () => {
+      const layerEl = document.createElement("div");
+      layerEl.innerHTML = `
+        <div class="cloud-drift" data-duration="200" data-bob="12"><span></span></div>
+        <div class="cloud-drift" data-duration="260" data-bob="8"><span></span></div>
+      `;
+      document.body.appendChild(layerEl);
+      return layerEl;
+    };
+
+    it("creates a looping drift and bob tween for every strip", () => {
+      const layerEl = buildLayer();
+
+      const tweens = animations.animateCloudDrift(layerEl);
+
+      expect(tweens).toHaveLength(4);
+      tweens.forEach((tween) => {
+        expect(tween.paused()).toBe(false);
+      });
+      // Seamless loop: one tile width, repeated forever
+      expect(tweens[0].repeat()).toBe(-1);
+      expect(tweens[0].duration()).toBe(200);
+    });
+
+    it("moves the strips from left to right by exactly one tile width", () => {
+      const layerEl = buildLayer();
+      const strip = layerEl.querySelector<HTMLElement>(".cloud-drift");
+
+      const [drift] = animations.animateCloudDrift(layerEl);
+
+      expect(strip).not.toBeNull();
+      drift.progress(0);
+      expect(gsap.getProperty(strip as Element, "x")).toBe(-1280);
+
+      drift.progress(1);
+      expect(gsap.getProperty(strip as Element, "x")).toBe(0);
+    });
+
+    it("skips the drift when the user prefers reduced motion", () => {
+      const layerEl = buildLayer();
+      const original = window.matchMedia;
+      Object.defineProperty(window, "matchMedia", {
+        value: () => ({ matches: true }),
+        writable: true,
+        configurable: true,
+      });
+
+      expect(animations.animateCloudDrift(layerEl)).toEqual([]);
+
+      if (original) {
+        Object.defineProperty(window, "matchMedia", {
+          value: original,
+          writable: true,
+          configurable: true,
+        });
+      } else {
+        delete (window as unknown as Record<string, unknown>).matchMedia;
+      }
+    });
+
+    it("returns an empty list when there is nothing to animate", () => {
+      const emptyLayer = document.createElement("div");
+      document.body.appendChild(emptyLayer);
+
+      expect(animations.animateCloudDrift(emptyLayer)).toEqual([]);
+      expect(animations.animateCloudDrift(null as unknown as HTMLElement)).toEqual(
+        [],
+      );
+    });
   });
 
   describe("animateFolderOpen", () => {

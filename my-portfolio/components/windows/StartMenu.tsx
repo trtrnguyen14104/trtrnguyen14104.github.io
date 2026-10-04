@@ -180,6 +180,31 @@ export function StartMenu({
           <button
             type="button"
             role="button"
+            aria-label="Open Experience"
+            onClick={() => handleShortcutClick("experience")}
+            className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 transition-colors text-left group"
+          >
+            <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/icons/Windows-FOLDER.png"
+                alt=""
+                className="w-5 h-5 object-contain"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-medium text-white group-hover:text-cyan-300 transition-colors">
+                Experience
+              </div>
+              <div className="text-xs text-slate-400 truncate">
+                Internships, work history &amp; education
+              </div>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            role="button"
             aria-label="Open Projects"
             onClick={() => handleShortcutClick("projects")}
             className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-white/10 transition-colors text-left group"
