@@ -5,14 +5,15 @@ import { LottiePlayer } from "@/components/common/LottiePlayer";
 
 const mockDestroy = vi.fn();
 const mockSetSpeed = vi.fn();
+const mockLoadAnimation = vi.fn().mockImplementation(() => ({
+  destroy: mockDestroy,
+  setSpeed: mockSetSpeed,
+}));
 
 vi.mock("lottie-web", () => {
   return {
     default: {
-      loadAnimation: vi.fn().mockImplementation(() => ({
-        destroy: mockDestroy,
-        setSpeed: mockSetSpeed,
-      })),
+      loadAnimation: mockLoadAnimation,
     },
   };
 });
@@ -49,6 +50,32 @@ describe("LottiePlayer Component", () => {
 
     await waitFor(() => {
       expect(mockSetSpeed).toHaveBeenCalledWith(1.5);
+    });
+  });
+
+  it("uses a cropped viewBox-only SVG viewport when viewBoxSize is provided", async () => {
+    const fakeData = { v: "5.9.4", fr: 30, ip: 0, op: 100, layers: [] };
+    render(
+      <LottiePlayer
+        animationData={fakeData}
+        testId="cat-player"
+        viewBoxSize="390 180 560 276"
+      />
+    );
+
+    await waitFor(() => {
+      expect(mockLoadAnimation).toHaveBeenCalledWith(
+        expect.objectContaining({
+          rendererSettings: expect.objectContaining({
+            viewBoxOnly: true,
+            viewBoxSize: "390 180 560 276",
+          }),
+        })
+      );
+    });
+
+    expect(screen.getByTestId("cat-player")).toHaveStyle({
+      aspectRatio: "560 / 276",
     });
   });
 

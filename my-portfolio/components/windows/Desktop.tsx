@@ -5,6 +5,7 @@ import Image from "next/image";
 import { DesktopIcon } from "./DesktopIcon";
 import { HeroTypography } from "./HeroTypography";
 import { CloudLayer } from "./CloudLayer";
+import { LottiePlayer } from "@/components/common/LottiePlayer";
 import { animateDesktopIntro } from "@/utils/gsapAnimations";
 import { WindowId } from "@/hooks/useWindowManager";
 
@@ -138,6 +139,21 @@ export function Desktop({
       <div className="absolute inset-0 z-3 flex items-center justify-center pointer-events-none pb-20 sm:pb-28 md:pb-36 px-4">
         <HeroTypography />
       </div>
+
+      {/* Playing cat on the wallpaper, above the taskbar and below windows. */}
+      {introReady && (
+        <div
+          aria-hidden="true"
+          className="absolute bottom-16 right-3 z-4 pointer-events-none w-[220px] max-w-[55vw] sm:bottom-20 sm:right-6 sm:w-[300px] lg:w-[360px]"
+        >
+          <LottiePlayer
+            src="/animations/Cat_playing_animation_extended.json"
+            viewBoxSize="0 0 1070 456"
+            className="w-full"
+            testId="desktop-cat-animation"
+          />
+        </div>
+      )}
 
       {/* Desktop Folder Icons (Arranged vertically on the left side) */}
       <div className="absolute top-8 left-4 sm:top-12 sm:left-8 z-10 flex flex-col gap-6 sm:gap-8 pointer-events-auto">

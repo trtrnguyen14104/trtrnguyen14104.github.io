@@ -50,6 +50,12 @@ function processProperty(prop, startFrame, endFrame) {
   if (!prop || typeof prop !== 'object') return prop;
   if (prop.a === 1 && Array.isArray(prop.k)) {
     prop.k = sliceKeyframes(prop.k, startFrame, endFrame);
+    // Lottie needs two keyframes to interpolate; a single retained value is static.
+    if (prop.k.length === 1 && Array.isArray(prop.k[0].s)) {
+      const value = prop.k[0].s;
+      prop.a = 0;
+      prop.k = value.length === 1 ? value[0] : value;
+    }
   }
   return prop;
 }

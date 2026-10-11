@@ -277,11 +277,12 @@ export function ContactContent({ className = "" }: ContactContentProps) {
           </div>
         </div>
 
-        {/* Sleeping Cat Animation — resting on Bliss grass above the mail dialog */}
-        <div className="w-full flex justify-center mb-1">
+        {/* Keep the whole cat and floating sleep bubbles inside the cropped viewport. */}
+        <div className="w-full flex justify-center mb-2">
           <LottiePlayer
             src="/animations/Cat_sleeping_animation.json"
-            className="w-full max-w-[280px] sm:max-w-[330px] h-auto drop-shadow-md"
+            viewBoxSize="300 0 770 420"
+            className="w-full max-w-[360px] sm:max-w-[420px] h-auto drop-shadow-md"
             ariaLabel="Cat peacefully sleeping on the grass with Zzz bubbles"
             testId="contact-cat-animation"
           />

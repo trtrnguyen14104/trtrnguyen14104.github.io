@@ -229,10 +229,12 @@ export function ExperienceContent({ className = "" }: ExperienceContentProps) {
         </div>
 
         {/* Cat Catching Butterfly Animation — playful scene above the timeline */}
+        {/* viewBoxSize crops canvas to the active region: butterfly (top-right) + cat (center) */}
         <div className="w-full flex justify-center mb-2 sm:mb-4">
           <LottiePlayer
             src="/animations/Cat_butterfly_animation.json"
-            className="w-full max-w-[340px] sm:max-w-[420px] h-auto drop-shadow-lg"
+            viewBoxSize="300 0 770 420"
+            className="w-full max-w-[360px] sm:max-w-[440px] h-auto drop-shadow-lg"
             ariaLabel="Cat jumping and catching a butterfly"
             testId="experience-cat-animation"
           />

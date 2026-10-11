@@ -36,6 +36,12 @@ export interface LottiePlayerProps {
    * Custom test ID for unit tests
    */
   testId?: string;
+  /**
+   * Crop/zoom the animation canvas. Format: "x y width height" (SVG viewBox units).
+   * Uses the original animation coordinate space (1070x456 for cat animations).
+   * Example: "400 200 500 256" — zooms into a 500×256 region starting at (400, 200).
+   */
+  viewBoxSize?: string;
 }
 
 export function LottiePlayer({
@@ -47,10 +53,23 @@ export function LottiePlayer({
   className = "",
   ariaLabel = "Cat animation",
   testId = "lottie-player",
+  viewBoxSize,
 }: LottiePlayerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const animInstanceRef = useRef<AnimationItem | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const croppedAspectRatio = React.useMemo(() => {
+    if (!viewBoxSize) return undefined;
+
+    const [, , width, height] = viewBoxSize
+      .trim()
+      .split(/\s+/)
+      .map(Number);
+
+    if (!width || !height) return undefined;
+
+    return `${width} / ${height}`;
+  }, [viewBoxSize]);
 
   useEffect(() => {
     let isCancelled = false;
@@ -90,6 +109,8 @@ export function LottiePlayer({
           rendererSettings: {
             preserveAspectRatio: "xMidYMid meet",
             progressiveLoad: true,
+            // Crop/zoom into a specific region of the animation canvas
+            ...(viewBoxSize ? { viewBoxOnly: true, viewBoxSize } : {}),
           },
         });
 
@@ -102,7 +123,6 @@ export function LottiePlayer({
       } catch (err) {
         // Handle fetch/render gracefully in test or offline environments
         if (process.env.NODE_ENV !== "production") {
-          // eslint-disable-next-line no-console
           console.warn("[LottiePlayer] Unable to initialize animation:", err);
         }
       }
@@ -117,7 +137,7 @@ export function LottiePlayer({
         animInstanceRef.current = null;
       }
     };
-  }, [src, animationData, loop, autoplay, speed]);
+  }, [src, animationData, loop, autoplay, speed, viewBoxSize]);
 
   return (
     <div
@@ -126,8 +146,8 @@ export function LottiePlayer({
       aria-label={ariaLabel}
       data-testid={testId}
       data-loaded={isLoaded}
-      className={`relative select-none pointer-events-none ${className}`}
+      style={croppedAspectRatio ? { aspectRatio: croppedAspectRatio } : undefined}
+      className={`relative select-none pointer-events-none [&>svg]:block [&>svg]:h-full [&>svg]:w-full ${className}`}
     />
   );
 }
-
