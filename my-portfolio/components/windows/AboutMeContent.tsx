@@ -11,6 +11,7 @@ import {
   Code2,
 } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
+import { LottiePlayer } from "@/components/common/LottiePlayer";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -257,8 +258,8 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
           </div>
         </div>
 
-        {/* Right Column: Portrait Photo with Sticker Card Styling */}
-        <div className="lg:col-span-5 flex justify-center lg:justify-end">
+        {/* Right Column: Portrait Photo with Sticker Card Styling + Cat Companion */}
+        <div className="lg:col-span-5 flex flex-col items-center lg:items-end gap-2">
           <div className="relative group max-w-[320px] sm:max-w-90 md:max-w-95 w-full">
             {/* Sticker / Card Framing */}
             <div className="p-3 sm:p-3.5 bg-white/95 rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.4)] transform rotate-[1.5deg] group-hover:rotate-0 transition-transform duration-300">
@@ -291,6 +292,16 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
             <div className="absolute -top-3 -right-2 bg-[#ffd000] text-slate-950 font-black text-[11px] uppercase tracking-wider px-3 py-1 rounded-full shadow-lg border-2 border-white transform rotate-10 group-hover:rotate-[5deg] transition-transform">
               Full-Stack Dev
             </div>
+          </div>
+
+          {/* Cat Playing with Ball Animation — companion sitting below portrait */}
+          <div className="w-full max-w-[320px] sm:max-w-[360px]">
+            <LottiePlayer
+              src="/animations/Cat_playing_with_ball_animation.json"
+              className="w-full h-auto drop-shadow-md"
+              ariaLabel="Playful cat playing with a ball"
+              testId="about-me-cat-animation"
+            />
           </div>
         </div>
       </div>

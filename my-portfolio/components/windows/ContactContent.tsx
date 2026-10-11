@@ -16,6 +16,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
+import { LottiePlayer } from "@/components/common/LottiePlayer";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -274,6 +275,16 @@ export function ContactContent({ className = "" }: ContactContentProps) {
               )}
             </button>
           </div>
+        </div>
+
+        {/* Sleeping Cat Animation — resting on Bliss grass above the mail dialog */}
+        <div className="w-full flex justify-center mb-1">
+          <LottiePlayer
+            src="/animations/Cat_sleeping_animation.json"
+            className="w-full max-w-[280px] sm:max-w-[330px] h-auto drop-shadow-md"
+            ariaLabel="Cat peacefully sleeping on the grass with Zzz bubbles"
+            testId="contact-cat-animation"
+          />
         </div>
 
         {/* Retro Windows Mail / Outlook Express Message Dialog */}

@@ -39,8 +39,8 @@ export const portfolioData: PortfolioData = {
       accentColor: "#ffffff",
       mockImages: {
         left: "/pictures/quizlearn/quizlearn-library.png",
-        main: "/pictures/quizlearn/quizlearn-result.png",
-        right: "/pictures/quizlearn/quizlearn-dashboard.png",
+        main: "/pictures/quizlearn/quizlearn-dashboard.png",
+        right: "/pictures/quizlearn/quizlearn-result.png",
       },
       links: {
         github: "https://github.com/trtrnguyen14104/Quiz_app",

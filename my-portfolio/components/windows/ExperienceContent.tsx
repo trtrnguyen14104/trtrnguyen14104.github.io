@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { portfolioData } from "@/data/portfolioData";
 import type { EducationItem, ExperienceItem } from "@/types/portfolio";
+import { LottiePlayer } from "@/components/common/LottiePlayer";
 
 const SCRIPT_FONT =
   "'Pacifico', 'Brush Script MT', 'Caveat', 'Shrikhand', cursive, sans-serif";
@@ -225,6 +226,16 @@ export function ExperienceContent({ className = "" }: ExperienceContentProps) {
               className="w-7 h-7 sm:w-8 sm:h-8 object-contain drop-shadow-lg select-none"
             />
           </div>
+        </div>
+
+        {/* Cat Catching Butterfly Animation — playful scene above the timeline */}
+        <div className="w-full flex justify-center mb-2 sm:mb-4">
+          <LottiePlayer
+            src="/animations/Cat_butterfly_animation.json"
+            className="w-full max-w-[340px] sm:max-w-[420px] h-auto drop-shadow-lg"
+            ariaLabel="Cat jumping and catching a butterfly"
+            testId="experience-cat-animation"
+          />
         </div>
 
         {/* Professional Experience */}
