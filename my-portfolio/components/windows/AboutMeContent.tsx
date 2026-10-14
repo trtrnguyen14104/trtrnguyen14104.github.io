@@ -2,15 +2,12 @@
 
 import React, { useState } from "react";
 import {
-  MapPin,
-  Briefcase,
-  Sparkles,
   ExternalLink,
   Mail,
   CheckCircle2,
   Code2,
 } from "lucide-react";
-import { portfolioData } from "@/data/portfolioData";
+import { usePortfolio } from "@/components/portfolio/PortfolioProvider";
 import { LottiePlayer } from "@/components/common/LottiePlayer";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -53,6 +50,7 @@ export interface AboutMeContentProps {
 }
 
 export function AboutMeContent({ className = "" }: AboutMeContentProps) {
+  const portfolioData = usePortfolio();
   const { profile, skills } = portfolioData;
   const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
 
@@ -82,7 +80,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
                     "3px 4px 0px #b45309, 5px 6px 0px #78350f, 7px 9px 14px rgba(0,0,0,0.35)",
                 }}
               >
-                hi, its Nguyen!
+                hi, its {profile.name.split(" ").at(-1)}!
               </h1>
             </div>
 
@@ -249,7 +247,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
 
             <a
               href={`mailto:${profile.email}`}
-              aria-label="Email Trần Trung Nguyên"
+              aria-label={`Email ${profile.name}`}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/20 hover:bg-white/30 text-white font-medium text-sm border border-white/25 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             >
               <Mail className="w-4 h-4 text-[#ffd000]" />
@@ -267,7 +265,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={profile.avatar}
-                  alt={`Trần Trung Nguyên - ${profile.role}`}
+                  alt={`${profile.name} - ${profile.role}`}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
 
@@ -290,7 +288,7 @@ export function AboutMeContent({ className = "" }: AboutMeContentProps) {
 
             {/* Decorative retro sticker badge floating at top right */}
             <div className="absolute -top-3 -right-2 bg-[#ffd000] text-slate-950 font-black text-[11px] uppercase tracking-wider px-3 py-1 rounded-full shadow-lg border-2 border-white transform rotate-10 group-hover:rotate-[5deg] transition-transform">
-              Full-Stack Dev
+              {profile.role}
             </div>
           </div>
 

@@ -1,5 +1,6 @@
+import { render } from "./renderPortfolio";
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent, within } from "@testing-library/react";
+import { screen, fireEvent, within } from "@testing-library/react";
 import { ProjectsContent } from "@/components/windows/ProjectsContent";
 import { LaptopMockup } from "@/components/windows/LaptopMockup";
 import { portfolioData } from "@/data/portfolioData";
@@ -74,9 +75,9 @@ describe("ProjectsContent Component", () => {
   it("switches projects by clicking folder tabs", () => {
     render(<ProjectsContent />);
 
-    // Click on 02_AloChat folder tab
+    // Click on 02_Social_Media_AloChat folder tab
     const aloChatTab = screen.getByRole("button", {
-      name: /02_AloChat/i,
+      name: /02_Social_Media_AloChat/i,
     });
     fireEvent.click(aloChatTab);
 
@@ -84,9 +85,9 @@ describe("ProjectsContent Component", () => {
       screen.getByRole("heading", { name: /Social Media AloChat/i })
     ).toBeInTheDocument();
 
-    // Click on 03_Research_System folder tab
+    // Click on 03_Research_Data_Management_System folder tab
     const researchTab = screen.getByRole("button", {
-      name: /03_Research_System/i,
+      name: /03_Research_Data_Management_System/i,
     });
     fireEvent.click(researchTab);
 
@@ -135,8 +136,8 @@ describe("ProjectsContent Component", () => {
     const gridView = screen.getByTestId("explorer-grid-view");
     expect(gridView).toBeInTheDocument();
     expect(within(gridView).getByText("01_Quiz_App")).toBeInTheDocument();
-    expect(within(gridView).getByText("02_AloChat")).toBeInTheDocument();
-    expect(within(gridView).getByText("03_Research_System")).toBeInTheDocument();
+    expect(within(gridView).getByText("02_Social_Media_AloChat")).toBeInTheDocument();
+    expect(within(gridView).getByText("03_Research_Data_Management_System")).toBeInTheDocument();
     expect(within(gridView).getByText("README.md")).toBeInTheDocument();
 
     // Toggle back to Showcase mode
@@ -170,7 +171,7 @@ describe("ProjectsContent Component", () => {
     it("renders the project screenshots inside the three fan cards", () => {
       render(<ProjectsContent />);
 
-      fireEvent.click(screen.getByRole("button", { name: /02_AloChat/i }));
+      fireEvent.click(screen.getByRole("button", { name: /02_Social_Media_AloChat/i }));
 
       expect(
         screen.getByAltText(/Social Media AloChat - Left Preview/i)
@@ -182,7 +183,7 @@ describe("ProjectsContent Component", () => {
         screen.getByAltText(/Social Media AloChat - Right Preview/i)
       ).toHaveAttribute("src", "/pictures/Alochat/alochat-project-detail.webp");
 
-      fireEvent.click(screen.getByRole("button", { name: /03_Research_System/i }));
+      fireEvent.click(screen.getByRole("button", { name: /03_Research_Data_Management_System/i }));
 
       expect(
         screen.getByAltText(/Research Data Management System - Main Preview/i)

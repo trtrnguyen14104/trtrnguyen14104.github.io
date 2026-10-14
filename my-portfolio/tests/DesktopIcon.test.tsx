@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
+import { render } from "./renderPortfolio";
 import { DesktopIcon } from "@/components/windows/DesktopIcon";
 import { HeroTypography } from "@/components/windows/HeroTypography";
 import { Desktop, DEFAULT_DESKTOP_FOLDERS } from "@/components/windows/Desktop";

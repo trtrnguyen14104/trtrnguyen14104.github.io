@@ -1,6 +1,7 @@
+import { render } from "./renderPortfolio";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent, waitFor, within } from "@testing-library/react";
-import Page from "@/app/page";
+import { screen, fireEvent, waitFor, within } from "@testing-library/react";
+import Page from "@/components/windows/PortfolioDesktop";
 import gsap from "gsap";
 
 describe("Portfolio Home Page Integration", () => {
@@ -51,7 +52,7 @@ describe("Portfolio Home Page Integration", () => {
     // About Me window opens
     const dialog = await screen.findByRole("dialog", { name: /About Me/i });
     expect(dialog).toBeInTheDocument();
-    expect(screen.getByText(/hi, its Nguyen!/i)).toBeInTheDocument();
+    expect(screen.getByText(/hi, its Nguyên!/i)).toBeInTheDocument();
     expect(screen.getByAltText(/Trần Trung Nguyên/i)).toBeInTheDocument();
 
     // Close the window

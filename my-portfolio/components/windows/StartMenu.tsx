@@ -8,7 +8,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { WindowId } from "@/hooks/useWindowManager";
-import { portfolioData } from "@/data/portfolioData";
+import { usePortfolio } from "@/components/portfolio/PortfolioProvider";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -58,6 +58,7 @@ export function StartMenu({
   onOpenWindow,
   onRestartPortfolio,
 }: StartMenuProps) {
+  const portfolioData = usePortfolio();
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Close on Escape or click outside
@@ -128,7 +129,7 @@ export function StartMenu({
           <h3 className="font-semibold text-base text-white truncate">
             {portfolioData.profile.name}
           </h3>
-          <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+          {/* <div className="flex items-center gap-2 mt-0.5 flex-wrap">
             <span className="text-[11px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-medium border border-cyan-500/30">
               {portfolioData.profile.role}
             </span>
@@ -136,15 +137,15 @@ export function StartMenu({
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               {portfolioData.profile.status}
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
 
       {/* Tagline / Bio snippet */}
-      <div className="px-4 py-2 bg-black/25 text-[11px] text-slate-300 border-b border-white/5 flex items-center gap-2">
+      {/* <div className="px-4 py-2 bg-black/25 text-[11px] text-slate-300 border-b border-white/5 flex items-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-yellow-400 shrink-0" />
         <span className="truncate">{portfolioData.profile.tagline}</span>
-      </div>
+      </div> */}
 
       {/* Pinned Folder Shortcuts */}
       <div className="p-3">

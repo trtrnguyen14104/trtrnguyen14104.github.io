@@ -13,7 +13,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import gsap from "gsap";
-import { portfolioData } from "@/data/portfolioData";
+import { usePortfolio } from "@/components/portfolio/PortfolioProvider";
 import { ProjectItem } from "@/types/portfolio";
 import { LaptopMockup } from "@/components/windows/LaptopMockup";
 
@@ -34,35 +34,13 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-// Background colors explicitly matching project-1/2/3.png samples
-const PROJECT_BG_COLORS: Record<string, string> = {
-  "project-1": "#c5e153", // Lime green matching sample 1
-  "project-2": "#5373e1", // Periwinkle blue matching sample 2
-  "project-3": "#f4c938", // Sunflower yellow matching sample 3
-  "project-4": "#242730", // Sleek dark slate
-};
-
 export function getProjectBgColor(project: ProjectItem): string {
-  return PROJECT_BG_COLORS[project.id] || project.bgColor || "#c5e153";
+  return project.bgColor || "#c5e153";
 }
 
-// Friendly folder names for File Explorer tabs matching task brief
-const FOLDER_NAMES: Record<string, string> = {
-  "project-1": "01_Quiz_App",
-  "project-2": "02_AloChat",
-  "project-3": "03_Research_System",
-  "project-4": "04_Next_Project",
-};
-
 export function getFolderTabName(project: ProjectItem, index: number): string {
-  if (FOLDER_NAMES[project.id]) {
-    return FOLDER_NAMES[project.id];
-  }
-  const num = project.number || `0${index + 1}`;
-  const slug = project.title
-    .replace(/[^a-zA-Z0-9]/g, "_")
-    .replace(/_+/g, "_")
-    .replace(/^_|_$/g, "");
+  const num = project.number || String(index + 1).padStart(2, "0");
+  const slug = project.title.replace(/[^\p{L}\p{N}]/gu, "_").replace(/_+/g, "_").replace(/^_|_$/g, "");
   return `${num}_${slug}`;
 }
 
@@ -75,6 +53,7 @@ export function ProjectsContent({
   className = "",
   initialProjectId,
 }: ProjectsContentProps) {
+  const portfolioData = usePortfolio();
   const projects = portfolioData.projects;
 
   const initialIndex = initialProjectId
@@ -91,11 +70,11 @@ export function ProjectsContent({
   const currentProject = projects[activeIndex] || projects[0];
 
   const handleNext = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % projects.length);
+    setActiveIndex((prev) => projects.length ? (prev + 1) % projects.length : 0);
   }, [projects.length]);
 
   const handlePrev = useCallback(() => {
-    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length);
+    setActiveIndex((prev) => projects.length ? (prev - 1 + projects.length) % projects.length : 0);
   }, [projects.length]);
 
   // Keyboard navigation for Left and Right arrow keys
@@ -123,7 +102,7 @@ export function ProjectsContent({
 
   // GSAP Smooth Background Color & Card Reveal Animation
   useEffect(() => {
-    if (!showcaseBgRef.current) return;
+    if (!showcaseBgRef.current || !currentProject) return;
     const targetColor = getProjectBgColor(currentProject);
 
     try {
@@ -152,6 +131,8 @@ export function ProjectsContent({
       // Fallback for non-browser or test runner environments
     }
   }, [activeIndex, currentProject]);
+
+  if (!currentProject) return <div className="p-8 bg-white text-slate-800">No projects published yet.</div>;
 
   return (
     <div

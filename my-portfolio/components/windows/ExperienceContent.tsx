@@ -12,7 +12,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
-import { portfolioData } from "@/data/portfolioData";
+import { usePortfolio } from "@/components/portfolio/PortfolioProvider";
 import type { EducationItem, ExperienceItem } from "@/types/portfolio";
 import { LottiePlayer } from "@/components/common/LottiePlayer";
 
@@ -183,6 +183,7 @@ export interface ExperienceContentProps {
 }
 
 export function ExperienceContent({ className = "" }: ExperienceContentProps) {
+  const portfolioData = usePortfolio();
   const { profile, experience, education } = portfolioData;
 
   return (

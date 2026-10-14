@@ -35,7 +35,7 @@ export const portfolioData: PortfolioData = {
       tags: ["React", "Express", "Node.js", "TailwindCSS"],
       description:
         "A full-stack Quiz App featuring topic selection, timed quizzes, interactive score tracking, and performance analytics.",
-      bgColor: "#a3d95b",
+      bgColor: "#c5e153",
       accentColor: "#ffffff",
       mockImages: {
         left: "/pictures/quizlearn/quizlearn-library.png",
@@ -54,7 +54,7 @@ export const portfolioData: PortfolioData = {
       tags: ["React", "Express", "Redis", "Socket.io"],
       description:
         "A real-time messaging and social application built with instant messaging, live presence, Redis caching, and WebSocket streams.",
-      bgColor: "#4a69e2",
+      bgColor: "#5373e1",
       accentColor: "#ffffff",
       mockImages: {
         left: "/pictures/Alochat/alochat-login.webp",
@@ -73,7 +73,7 @@ export const portfolioData: PortfolioData = {
       tags: ["Next.js", "FastAPI", "TypeScript", "PostgreSQL"],
       description:
         "A comprehensive management platform for scientific research publications featuring staging, peer review, approval pipelines, and search.",
-      bgColor: "#f4c430",
+      bgColor: "#f4c938",
       accentColor: "#ffffff",
       mockImages: {
         left: "/pictures/rdms/rdms-library.webp",
@@ -92,7 +92,7 @@ export const portfolioData: PortfolioData = {
       tags: ["Coming Soon", "Full-Stack"],
       description:
         "In progress ... Stay tuned for updates on my latest project, exploring new technologies and building something exciting to share with the community.",
-      bgColor: "#2a2a2e",
+      bgColor: "#242730",
       accentColor: "#ffffff",
       mockImages: {
         left: "/samples/project-1.png",

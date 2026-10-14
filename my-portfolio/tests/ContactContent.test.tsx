@@ -1,5 +1,6 @@
+import { render } from "./renderPortfolio";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import { ContactContent } from "@/components/windows/ContactContent";
 import { portfolioData } from "@/data/portfolioData";
 
@@ -7,6 +8,7 @@ describe("ContactContent Component", () => {
   const originalClipboard = navigator.clipboard;
 
   beforeEach(() => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => ({ data: { received: true } }) }));
     // Mock clipboard
     Object.assign(navigator, {
       clipboard: {
@@ -20,6 +22,7 @@ describe("ContactContent Component", () => {
       clipboard: originalClipboard,
     });
     vi.clearAllMocks();
+    vi.unstubAllGlobals();
   });
 
   it("renders Let's Work headline, contact me script, and action buttons", () => {
@@ -133,6 +136,9 @@ describe("ContactContent Component", () => {
       screen.getByText(/Please enter a subject and message/i)
     ).toBeInTheDocument();
 
+    fireEvent.change(screen.getByPlaceholderText("Your Name"), { target: { value: "Visitor" } });
+    fireEvent.change(screen.getByPlaceholderText("Your Email"), { target: { value: "visitor@example.com" } });
+
     // Fill in form
     fireEvent.change(subjectInput, {
       target: { value: "Exciting Opportunity" },
@@ -149,8 +155,27 @@ describe("ContactContent Component", () => {
     await waitFor(() => {
       const alert = screen.getByRole("alert");
       expect(alert).toHaveTextContent(
-        /Message queued! Thank you for reaching out/i
+        /Message received! Thank you for reaching out/i
       );
     });
+  });
+
+  it("preserves input and the submission ID after a failed request, then accepts a retry", async () => {
+    const fetchMock = vi.mocked(fetch);
+    fetchMock.mockResolvedValueOnce({ ok: false, json: async () => ({ error: { message: "Service unavailable" } }) } as Response);
+    render(<ContactContent />);
+    fireEvent.change(screen.getByPlaceholderText("Your Name"), { target: { value: "Visitor" } });
+    fireEvent.change(screen.getByPlaceholderText("Your Email"), { target: { value: "visitor@example.com" } });
+    fireEvent.change(screen.getByPlaceholderText(/Subject/i), { target: { value: "Opportunity" } });
+    fireEvent.change(screen.getByPlaceholderText(/Write your message here/i), { target: { value: "Hello" } });
+    fireEvent.click(screen.getByRole("button", { name: "Send Message" }));
+    await screen.findByText("Service unavailable");
+    expect(screen.getByPlaceholderText(/Write your message here/i)).toHaveValue("Hello");
+    fireEvent.click(screen.getByRole("button", { name: "Send Message" }));
+    await screen.findByText("Message received! Thank you for reaching out.");
+    const first = JSON.parse(fetchMock.mock.calls[0][1]!.body as string);
+    const second = JSON.parse(fetchMock.mock.calls[1][1]!.body as string);
+    expect(second.submissionId).toBe(first.submissionId);
+    expect(screen.getByPlaceholderText(/Write your message here/i)).toHaveValue("");
   });
 });

@@ -1,5 +1,6 @@
+import { render } from "./renderPortfolio";
 import { describe, it, expect, afterEach } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import { ExperienceContent } from "@/components/windows/ExperienceContent";
 import { portfolioData } from "@/data/portfolioData";
 

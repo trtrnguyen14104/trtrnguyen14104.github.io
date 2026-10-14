@@ -15,7 +15,7 @@ import {
   AlertCircle,
   MessageSquare,
 } from "lucide-react";
-import { portfolioData } from "@/data/portfolioData";
+import { usePortfolio } from "@/components/portfolio/PortfolioProvider";
 import { LottiePlayer } from "@/components/common/LottiePlayer";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -58,6 +58,7 @@ export interface ContactContentProps {
 }
 
 export function ContactContent({ className = "" }: ContactContentProps) {
+  const portfolioData = usePortfolio();
   const { profile } = portfolioData;
 
   // Form states
@@ -101,40 +102,35 @@ export function ContactContent({ className = "" }: ContactContentProps) {
     }
   };
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const [sending, setSending] = useState(false);
+  const sendingRef = React.useRef(false);
+  const submissionRef = React.useRef<{ id: string; payload: string } | null>(null);
+  const [website, setWebsite] = useState("");
+
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormError(null);
-    setFormSuccess(null);
-
+    if (sendingRef.current) return;
+    setFormError(null); setFormSuccess(null);
     if (!subject.trim() || !message.trim()) {
-      setFormError("Please enter a subject and message.");
-      return;
+      setFormError("Please enter a subject and message."); return;
     }
-
-    // Construct mailto link for native client launch
-    const mailtoSubject = encodeURIComponent(subject);
-    const bodyContent = `Name: ${senderName || "Visitor"}\nEmail: ${senderEmail || "Not provided"}\n\n${message}`;
-    const mailtoBody = encodeURIComponent(bodyContent);
-    const mailtoUrl = `mailto:${profile.email}?subject=${mailtoSubject}&body=${mailtoBody}`;
-
-    // Show immediate success confirmation
-    setFormSuccess("Message queued! Thank you for reaching out to Trần Trung Nguyên.");
-    setToastMessage("Message queued! Thank you for reaching out.");
-
-    // Trigger mailto link in background if browser environment
-    if (typeof window !== "undefined" && process.env.NODE_ENV !== "test") {
-      try {
-        window.location.href = mailtoUrl;
-      } catch {
-        // Silently continue if protocol handler is blocked
-      }
+    if (!senderName.trim() || !senderEmail.trim()) {
+      setFormError("Please enter your name and a valid email address."); return;
     }
-
-    // Reset inputs
-    setSenderName("");
-    setSenderEmail("");
-    setSubject("");
-    setMessage("");
+    const fields = { name: senderName.trim(), email: senderEmail.trim(), subject: subject.trim(), message: message.trim(), website };
+    const payload = JSON.stringify(fields);
+    if (!submissionRef.current || submissionRef.current.payload !== payload) submissionRef.current = { id: crypto.randomUUID(), payload };
+    sendingRef.current = true; setSending(true);
+    try {
+      const response = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...fields, submissionId: submissionRef.current.id }) });
+      const result = await response.json();
+      if (!response.ok || result?.data?.received !== true) throw new Error(result?.error?.message ?? "Could not save your message. Please try again.");
+      setFormSuccess("Message received! Thank you for reaching out.");
+      setToastMessage("Your message has been saved.");
+      setSenderName(""); setSenderEmail(""); setSubject(""); setMessage(""); setWebsite(""); submissionRef.current = null;
+    } catch (error) {
+      setFormError(error instanceof Error ? error.message : "Could not save your message. Please try again.");
+    } finally { sendingRef.current = false; setSending(false); }
   };
 
   const handleResetForm = () => {
@@ -144,6 +140,8 @@ export function ContactContent({ className = "" }: ContactContentProps) {
     setMessage("");
     setFormError(null);
     setFormSuccess(null);
+    submissionRef.current = null;
+    setWebsite("");
   };
 
   return (
@@ -218,18 +216,18 @@ export function ContactContent({ className = "" }: ContactContentProps) {
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="FOLLOW ME @trtrnguyen14104"
+              aria-label={`FOLLOW ME @${new URL(profile.github).pathname.split("/").filter(Boolean)[0] ?? "GitHub"}`}
               className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 rounded-full bg-[#1d4ed8] hover:bg-[#1e40af] text-white font-black text-xs sm:text-sm tracking-wider uppercase border-2 border-white shadow-[0_8px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.35)] hover:scale-105 active:scale-95 transition-all duration-200"
             >
               <GithubIcon className="w-4 h-4 text-white group-hover:rotate-12 transition-transform" />
-              <span>FOLLOW ME @trtrnguyen14104</span>
+              <span>FOLLOW ME @{new URL(profile.github).pathname.split("/").filter(Boolean)[0] ?? "GitHub"}</span>
               <ExternalLink className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100" />
             </a>
 
             {/* Purple Pill: Email */}
             <button
               type="button"
-              aria-label="Copy email trtrnguyen14104@gmail.com"
+              aria-label={`Copy email ${profile.email}`}
               onClick={() =>
                 copyToClipboard(profile.email, "Email", "email")
               }
@@ -379,6 +377,9 @@ export function ContactContent({ className = "" }: ContactContentProps) {
               <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <input
                   id="sender-name"
+                  aria-label="Your Name"
+                  maxLength={100}
+                  disabled={sending}
                   type="text"
                   placeholder="Your Name"
                   value={senderName}
@@ -387,8 +388,11 @@ export function ContactContent({ className = "" }: ContactContentProps) {
                 />
                 <input
                   id="sender-email"
+                  aria-label="Your Email"
+                  maxLength={254}
+                  disabled={sending}
                   type="email"
-                  placeholder="Your Email (optional)"
+                  placeholder="Your Email"
                   value={senderEmail}
                   onChange={(e) => setSenderEmail(e.target.value)}
                   className="w-full bg-white border border-slate-300 rounded px-2.5 py-1.5 text-slate-800 text-xs shadow-inner outline-none focus:border-blue-500"
@@ -407,6 +411,8 @@ export function ContactContent({ className = "" }: ContactContentProps) {
               <div className="flex-1 bg-white border border-slate-300 rounded px-2.5 py-1.5 shadow-inner">
                 <input
                   id="email-subject"
+                  maxLength={200}
+                  disabled={sending}
                   type="text"
                   placeholder="Subject: Collaboration / Project Inquiry"
                   value={subject}
@@ -427,6 +433,8 @@ export function ContactContent({ className = "" }: ContactContentProps) {
               <div className="flex-1 bg-white border border-slate-300 rounded p-2.5 shadow-inner">
                 <textarea
                   id="email-message"
+                  maxLength={5000}
+                  disabled={sending}
                   rows={4}
                   placeholder="Write your message here..."
                   value={message}
@@ -440,13 +448,14 @@ export function ContactContent({ className = "" }: ContactContentProps) {
             <div className="pt-2 flex items-center justify-between border-t border-slate-300">
               <div className="text-[11px] text-slate-500 flex items-center gap-1">
                 <MessageSquare className="w-3.5 h-3.5 text-slate-400" />
-                <span>Sends directly via email / default mail client</span>
+                <span>Your message is saved securely in the portfolio inbox</span>
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={handleResetForm}
+                  disabled={sending}
                   className="px-3 py-1.5 rounded border border-slate-400 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-medium cursor-pointer"
                 >
                   Discard
@@ -454,12 +463,18 @@ export function ContactContent({ className = "" }: ContactContentProps) {
                 <button
                   type="submit"
                   aria-label="Send Message"
+                  disabled={sending}
+                  aria-busy={sending}
                   className="px-5 py-1.5 rounded bg-[#0a66f0] hover:bg-[#0055ea] active:scale-95 text-white text-xs font-bold shadow flex items-center gap-1.5 cursor-pointer transition-all"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  <span>Send Message</span>
+                  <span>{sending ? "Sending…" : "Send Message"}</span>
                 </button>
               </div>
+            </div>
+            <div aria-hidden="true" className="absolute -left-[10000px]">
+              <label htmlFor="contact-website">Website</label>
+              <input id="contact-website" name="website" value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" />
             </div>
           </form>
         </div>

@@ -1,5 +1,6 @@
+import { render } from "./renderPortfolio";
 import { describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { AboutMeContent } from "@/components/windows/AboutMeContent";
 import { portfolioData } from "@/data/portfolioData";
 
@@ -8,7 +9,7 @@ describe("AboutMeContent Component", () => {
     render(<AboutMeContent />);
 
     // Groovy yellow cursive title
-    expect(screen.getByText(/hi, its Nguyen!/i)).toBeInTheDocument();
+    expect(screen.getByText(`hi, its ${portfolioData.profile.name.split(" ").at(-1)}!`)).toBeInTheDocument();
 
     // Lime/yellow script subtitle
     expect(screen.getByText(/what i do/i)).toBeInTheDocument();

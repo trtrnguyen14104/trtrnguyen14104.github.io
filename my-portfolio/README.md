@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16.3.5-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/Next.js-16.3.8-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/React-19.2.8-blue?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
@@ -26,6 +26,10 @@
 ---
 
 ## 📖 Overview
+
+## Portfolio CMS
+
+Next.js backend, MongoDB Atlas, Google owner login, Cloudinary image uploads and a contact inbox are included. Open `/admin` to manage content. See [CMS setup and deployment](docs/CMS_SETUP.md) for environment variables, seeding, APIs and Vercel configuration.
 
 **Windows OS Portfolio** is the personal portfolio website of **Trần Trung Nguyên** (Full-Stack Developer). It simulates an authentic Windows operating system experience while blending it with a groovy 1970s retro aesthetic.
 

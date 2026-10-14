@@ -1,6 +1,7 @@
+import { render } from "./renderPortfolio";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import "@testing-library/jest-dom/vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { Taskbar } from "@/components/windows/Taskbar";
 import { StartMenu } from "@/components/windows/StartMenu";
 import { WindowConfig, WindowId } from "@/hooks/useWindowManager";

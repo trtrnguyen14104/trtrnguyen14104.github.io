@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { WindowConfig, WindowId } from "@/hooks/useWindowManager";
 import { StartMenu } from "./StartMenu";
-import { portfolioData } from "@/data/portfolioData";
+import { usePortfolio } from "@/components/portfolio/PortfolioProvider";
 
 export interface TaskbarProps {
   windows: Record<WindowId, WindowConfig>;
@@ -32,6 +32,7 @@ export function Taskbar({
   onRestartPortfolio,
   className = "",
 }: TaskbarProps) {
+  const portfolioData = usePortfolio();
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [isLiveDate, setIsLiveDate] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");

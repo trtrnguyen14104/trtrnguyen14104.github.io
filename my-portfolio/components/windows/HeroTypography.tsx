@@ -1,16 +1,18 @@
 "use client";
 
 import React from "react";
+import { usePortfolio } from "@/components/portfolio/PortfolioProvider";
 
 export interface HeroTypographyProps {
   className?: string;
 }
 
 export function HeroTypography({ className = "" }: HeroTypographyProps) {
+  const { profile } = usePortfolio();
   return (
     <div
       className={`hero-typography relative flex flex-col items-center justify-center select-none pointer-events-none transition-all ${className}`}
-      aria-label="Trần Trung Nguyên Portfolio"
+      aria-label={`${profile.name} Portfolio`}
     >
       {/* SVG Container for arched owner name */}
       <div className="w-85 xs:w-[400px] sm:w-135 md:w-170 lg:w-205 max-w-full overflow-visible">
@@ -43,7 +45,7 @@ export function HeroTypography({ className = "" }: HeroTypographyProps) {
               startOffset="50%"
               textAnchor="middle"
             >
-              TRẦN TRUNG NGUYÊN
+              {profile.name.toLocaleUpperCase("vi-VN")}
             </textPath>
           </text>
         </svg>

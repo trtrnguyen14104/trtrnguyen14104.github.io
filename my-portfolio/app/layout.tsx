@@ -36,9 +36,9 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Trần Trung Nguyên — Windows OS Portfolio",
+  title: "Windows OS Portfolio",
   description:
-    "Interactive Windows OS desktop portfolio showcasing software engineering projects, technical skills, and background of Trần Trung Nguyên.",
+    "Interactive Windows OS desktop portfolio.",
   icons: {
     icon: "/icons/Windows-FOLDER.png",
   },
